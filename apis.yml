@@ -1,0 +1,70 @@
+aid: callrail
+name: CallRail
+description: >-
+  CallRail is a call tracking and conversation intelligence platform
+  that attributes phone calls, texts, and form fills to marketing
+  campaigns and applies AI-powered transcription, sentiment, and lead
+  scoring to inbound conversations. The CallRail v3 API is a REST/JSON
+  interface exposing accounts, companies, trackers, calls, texts, form
+  submissions, and integrations. Authentication uses an account API key
+  passed in the HTTP Authorization header against a base URL of
+  https://api.callrail.com/v3/.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Call Tracking
+  - Conversation Intelligence
+  - Marketing Attribution
+  - Lead Tracking
+  - Telephony
+  - Analytics
+  - Form Tracking
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/callrail/refs/heads/main/apis.yml
+created: '2026-05-11'
+modified: '2026-05-11'
+specificationVersion: '0.19'
+apis:
+  - aid: callrail:v3-api
+    name: CallRail v3 API
+    description: >-
+      REST API providing programmatic access to CallRail accounts,
+      companies, tracking numbers, calls, text messages, form
+      submissions, users, tags, and integrations. Requests authenticate
+      via the HTTP header Authorization Token token="YOUR_API_KEY".
+    humanURL: https://apidocs.callrail.com/
+    baseURL: https://api.callrail.com/v3/
+    tags:
+      - Call Tracking
+      - Conversation Intelligence
+      - Marketing Attribution
+      - Calls
+      - Texts
+      - Form Submissions
+    properties:
+      - type: Documentation
+        url: https://apidocs.callrail.com/
+      - type: Help Center API
+        url: https://support.callrail.com/hc/en-us/sections/4426797289229-API
+
+common:
+  - type: Website
+    url: https://www.callrail.com
+  - type: Developer Portal
+    url: https://apidocs.callrail.com
+  - type: Documentation
+    url: https://apidocs.callrail.com/
+  - type: Pricing
+    url: https://www.callrail.com/pricing/
+  - type: Sign Up
+    url: https://app.callrail.com/signup
+  - type: Support
+    url: https://support.callrail.com
+  - type: GitHub Organization
+    url: https://github.com/CallRail
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/callrail
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
