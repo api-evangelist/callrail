@@ -1,0 +1,307 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CallRail v3 API",
+    "version": "3.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.callrail.com/v3/a.json",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all accounts accessible to the API key."
+        },
+        {
+          "info": {
+            "name": "Retrieve account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.callrail.com/v3/a/:account_id.json",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve account"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Calls",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List calls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.callrail.com/v3/a/:account_id/calls.json",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "relative_pagination",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "answered",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tracker_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of additional fields to include."
+              },
+              {
+                "name": "sorting",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List calls for an account. Supports offset or relative pagination."
+        },
+        {
+          "info": {
+            "name": "Create outbound call",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.callrail.com/v3/a/:account_id/calls.json",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create outbound call"
+        },
+        {
+          "info": {
+            "name": "Retrieve call",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.callrail.com/v3/a/:account_id/calls/:call_id.json",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "call_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve call"
+        },
+        {
+          "info": {
+            "name": "Update call",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.callrail.com/v3/a/:account_id/calls/:call_id.json",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "call_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update notes, tags, lead status, customer name, or spam flag."
+        },
+        {
+          "info": {
+            "name": "Call summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.callrail.com/v3/a/:account_id/calls/summary.json",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "group_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Summarized call data grouped by source, keyword, campaign, etc."
+        },
+        {
+          "info": {
+            "name": "Call timeseries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.callrail.com/v3/a/:account_id/calls/timeseries.json",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "time_zone",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "time_range",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Call data grouped by time intervals."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
