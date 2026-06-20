@@ -10,7 +10,7 @@ description: >-
   passed in the HTTP Authorization header against a base URL of
   https://api.callrail.com/v3/.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Call Tracking
   - Conversation Intelligence
