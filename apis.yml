@@ -50,13 +50,13 @@ apis:
 common:
   - type: Website
     url: https://www.callrail.com
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://apidocs.callrail.com
   - type: Documentation
     url: https://apidocs.callrail.com/
   - type: Pricing
     url: https://www.callrail.com/pricing/
-  - type: SignUp
+  - type: Signup
     url: https://app.callrail.com/signup
   - type: Support
     url: https://support.callrail.com
