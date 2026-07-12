@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/callrail-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: TokenAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: 'Send as `Authorization: Token token="YOUR_API_KEY"`.'
+  sources:
+  - openapi/callrail-openapi.yml

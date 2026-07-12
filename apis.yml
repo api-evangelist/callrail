@@ -48,6 +48,10 @@ apis:
         url: https://support.callrail.com/hc/en-us/sections/4426797289229-API
 
 common:
+  - type: DomainSecurity
+    url: security/callrail-domain-security.yml
+  - type: Authentication
+    url: authentication/callrail-authentication.yml
   - type: Website
     url: https://www.callrail.com
   - type: DeveloperPortal
