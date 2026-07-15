@@ -48,6 +48,8 @@ apis:
         url: https://support.callrail.com/hc/en-us/sections/4426797289229-API
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/callrail-agentic-access.yml
   - type: DomainSecurity
     url: security/callrail-domain-security.yml
   - type: Authentication
