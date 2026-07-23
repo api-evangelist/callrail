@@ -1,0 +1,149 @@
+openapi: 3.1.0
+info:
+  title: CallRail v3 Accounts API
+  version: 3.0.0
+  description: 'REST/JSON API for CallRail, a call tracking and conversation intelligence
+
+    platform. Exposes accounts, calls, and related summary/timeseries reporting.
+
+    '
+  contact:
+    name: CallRail API Support
+    url: https://apidocs.callrail.com/
+servers:
+- url: https://api.callrail.com/v3
+  description: Production
+security:
+- TokenAuth: []
+tags:
+- name: Accounts
+paths:
+  /a.json:
+    get:
+      tags:
+      - Accounts
+      summary: List accounts
+      description: List all accounts accessible to the API key.
+      operationId: listAccounts
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A paginated list of accounts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /a/{account_id}.json:
+    get:
+      tags:
+      - Accounts
+      summary: Retrieve account
+      operationId: getAccount
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: Account details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        outbound_recording_enabled:
+          type: boolean
+        hipaa_account:
+          type: boolean
+        numeric_id:
+          type: integer
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_records:
+          type: integer
+    AccountList:
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
+      - type: object
+        properties:
+          accounts:
+            type: array
+            items:
+              $ref: '#/components/schemas/Account'
+  parameters:
+    AccountId:
+      name: account_id
+      in: path
+      required: true
+      schema:
+        type: string
+    PerPage:
+      name: per_page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 100
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+  responses:
+    Unauthorized:
+      description: Missing or invalid credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit exceeded (1,000/hour or 10,000/day).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    TokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Send as `Authorization: Token token="YOUR_API_KEY"`.
+
+        '
