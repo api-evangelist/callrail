@@ -10,7 +10,19 @@ description: >-
   passed in the HTTP Authorization header against a base URL of
   https://api.callrail.com/v3/.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/callrail.png
 tags:
   - Call Tracking
   - Conversation Intelligence
@@ -25,28 +37,46 @@ created: '2026-05-11'
 modified: '2026-05-11'
 specificationVersion: '0.19'
 apis:
-  - aid: callrail:v3-api
-    name: CallRail v3 API
-    description: >-
-      REST API providing programmatic access to CallRail accounts,
-      companies, tracking numbers, calls, text messages, form
-      submissions, users, tags, and integrations. Requests authenticate
-      via the HTTP header Authorization Token token="YOUR_API_KEY".
-    humanURL: https://apidocs.callrail.com/
-    baseURL: https://api.callrail.com/v3/
-    tags:
-      - Call Tracking
-      - Conversation Intelligence
-      - Marketing Attribution
-      - Calls
-      - Texts
-      - Form Submissions
-    properties:
-      - type: Documentation
-        url: https://apidocs.callrail.com/
-      - type: Help Center API
-        url: https://support.callrail.com/hc/en-us/sections/4426797289229-API
-
+- aid: callrail:v3-api
+  name: CallRail v3 API
+  description: >-
+    REST API providing programmatic access to CallRail accounts, companies, tracking numbers, calls, text
+    messages, form submissions, users, tags, and integrations. Requests authenticate via the HTTP header
+    Authorization Token token="YOUR_API_KEY".
+  humanURL: https://apidocs.callrail.com/
+  baseURL: https://api.callrail.com/v3/
+  tags:
+  - Call Tracking
+  - Conversation Intelligence
+  - Marketing Attribution
+  - Calls
+  - Texts
+  - Form Submissions
+  properties:
+  - type: Documentation
+    url: https://apidocs.callrail.com/
+  - type: Help Center API
+    url: https://support.callrail.com/hc/en-us/sections/4426797289229-API
+- aid: callrail:callrail-accounts-api
+  name: CallRail Accounts API
+  description: The Accounts API from CallRail — 2 operation(s) for accounts.
+  humanURL: https://apidocs.callrail.com/
+  baseURL: https://api.callrail.com/v3/
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/callrail-accounts-api-openapi.yml
+- aid: callrail:callrail-calls-api
+  name: CallRail Calls API
+  description: The Calls API from CallRail — 4 operation(s) for calls.
+  humanURL: https://apidocs.callrail.com/
+  baseURL: https://api.callrail.com/v3/
+  tags:
+  - Calls
+  properties:
+  - type: OpenAPI
+    url: openapi/callrail-calls-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/callrail-agentic-access.yml
