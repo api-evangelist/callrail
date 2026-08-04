@@ -1,0 +1,16 @@
+{
+  "provider": "callrail",
+  "sources": [
+    "callrail-accounts-api-openapi.yml",
+    "callrail-calls-api-openapi.yml"
+  ],
+  "outputs": [
+    "callrail-accounts-api-openapi.yml",
+    "callrail-calls-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
