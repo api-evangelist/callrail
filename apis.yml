@@ -11,17 +11,24 @@ description: >-
   https://api.callrail.com/v3/.
 type: Index
 accessModel:
-  pricing: unknown
+  pricing: paid
   onboarding: self-serve
-  trial: false
+  trial: true
+  trial_days: 14
   try_now: false
   public: false
-  label: Self-serve signup
-  confidence: medium
+  label: Paid plans with a 14-day free trial
+  confidence: high
   source:
+  - https://www.callrail.com/pricing
+  - plans/callrail-plans-pricing.yml
   - authentication
-  generated: '2026-07-22'
-  method: derived
+  generated: '2026-08-14'
+  method: searched
+  note: >-
+    Four published self-serve tiers from $50/mo to $195/mo, all metered beyond 5 numbers and 250
+    minutes, plus an enterprise contact-sales track. No free tier. The API is included with the
+    platform rather than priced separately; API access requires an account and an API key.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/callrail.png
 tags:
   - Call Tracking
@@ -34,7 +41,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/callrail/refs/heads/main/apis.yml
 created: '2026-05-11'
-modified: '2026-05-11'
+modified: '2026-08-14'
 specificationVersion: '0.19'
 apis:
 - aid: callrail:v3-api
@@ -57,50 +64,157 @@ apis:
     url: https://apidocs.callrail.com/
   - type: Help Center API
     url: https://support.callrail.com/hc/en-us/sections/4426797289229-API
+  - type: APIReference
+    url: https://apidocs.callrail.com/#api
+  - type: GettingStarted
+    url: https://apidocs.callrail.com/#getting-started
+  - type: Authentication
+    url: authentication/callrail-authentication.yml
+  - type: Conventions
+    url: conventions/callrail-conventions.yml
+  - type: ErrorCatalog
+    url: errors/callrail-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/callrail-rate-limits.yml
+  - type: DataModel
+    url: data-model/callrail-data-model.yml
+  - type: Webhooks
+    url: asyncapi/callrail-webhooks.yml
+  - type: ChangeLog
+    url: https://apidocs.callrail.com/#changelog
+- aid: callrail:mcp
+  name: CallRail MCP Server
+  description: >-
+    CallRail's hosted Model Context Protocol server. Connects a CallRail account directly to AI
+    assistants (Claude.ai, Claude Desktop, ChatGPT) over OAuth 2.0, exposing 36 tools — 22 read
+    tools across accounts, calls, companies, conversations, form submissions, leads, SMS threads,
+    tags, trackers and users, plus 14 write tools. Read-only by default. The server proxies the
+    CallRail v3 REST API and scopes every response to the authenticated user's existing account
+    permissions. The endpoint URL is issued per account by CallRail and is not published.
+  humanURL: https://apidocs.callrail.com/#mcp
+  baseURL: https://api.callrail.com/v3/
+  tags:
+  - MCP
+  - Model Context Protocol
+  - AI Agents
+  - Call Tracking
+  properties:
+  - type: MCPServer
+    url: mcp/callrail-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/callrail-tool-crosswalk.yml
+  - type: Documentation
+    url: https://apidocs.callrail.com/#mcp
 - aid: callrail:callrail-accounts-api
   name: CallRail Accounts API
   description: The Accounts API from CallRail — 2 operation(s) for accounts.
-  humanURL: https://apidocs.callrail.com/
+  humanURL: https://apidocs.callrail.com/#accounts
   baseURL: https://api.callrail.com/v3/
   tags:
   - Accounts
   properties:
   - type: OpenAPI
     url: openapi/callrail-accounts-api-openapi.yml
+  - type: Overlay
+    url: overlays/callrail-accounts-api-overlay.yaml
 - aid: callrail:callrail-calls-api
   name: CallRail Calls API
-  description: The Calls API from CallRail — 4 operation(s) for calls.
-  humanURL: https://apidocs.callrail.com/
+  description: The Calls API from CallRail — 6 operation(s) for calls, including summary and time series reporting.
+  humanURL: https://apidocs.callrail.com/#calls
   baseURL: https://api.callrail.com/v3/
   tags:
   - Calls
   properties:
   - type: OpenAPI
     url: openapi/callrail-calls-api-openapi.yml
+  - type: Overlay
+    url: overlays/callrail-calls-api-overlay.yaml
 common:
+  - type: TrustCenter
+    url: security/callrail-trust-center.yml
+  - type: Compliance
+    url: https://www.callrail.com/security
+  - type: Conformance
+    url: conformance/callrail-conformance.yml
+  - type: VulnerabilityDisclosure
+    url: security/callrail-vulnerability-disclosure.yml
+  - type: Security
+    url: https://www.callrail.com/security/disclosure
   - type: AgenticAccess
     url: agentic-access/callrail-agentic-access.yml
   - type: DomainSecurity
     url: security/callrail-domain-security.yml
   - type: Authentication
     url: authentication/callrail-authentication.yml
+  - type: Conventions
+    url: conventions/callrail-conventions.yml
+  - type: ErrorCatalog
+    url: errors/callrail-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/callrail-rate-limits.yml
+  - type: Plans
+    url: plans/callrail-plans-pricing.yml
+  - type: DataModel
+    url: data-model/callrail-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/callrail-lifecycle.yml
+  - type: StatusPage
+    url: https://status.callrail.com/
+  - type: ChangeLog
+    url: changelog/callrail-changelog.yml
+  - type: Webhooks
+    url: asyncapi/callrail-webhooks.yml
+  - type: MCPServer
+    url: mcp/callrail-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/callrail-tool-crosswalk.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/callrail-llms.txt
+  - type: Packages
+    url: packages/callrail-packages.yml
+  - type: Components
+    url: components/callrail-components.yml
   - type: Website
     url: https://www.callrail.com
   - type: DeveloperPortal
     url: https://apidocs.callrail.com
   - type: Documentation
     url: https://apidocs.callrail.com/
+  - type: APIReference
+    url: https://apidocs.callrail.com/#api
+  - type: GettingStarted
+    url: https://apidocs.callrail.com/#getting-started
   - type: Pricing
-    url: https://www.callrail.com/pricing/
-  - type: Signup
-    url: https://app.callrail.com/signup
+    url: https://www.callrail.com/pricing
+  - type: SignUp
+    url: https://www.callrail.com/signup
+  - type: Login
+    url: https://app.callrail.com/authenticate
+  - type: TermsOfService
+    url: https://www.callrail.com/legal
+  - type: PrivacyPolicy
+    url: https://www.callrail.com/privacy
   - type: Support
-    url: https://support.callrail.com
+    url: https://support.callrail.com/hc/en-us
+  - type: Community
+    url: https://support.callrail.com/hc/en-us/community/topics
+  - type: Blog
+    url: https://www.callrail.com/learn
   - type: GitHubOrganization
     url: https://github.com/CallRail
+  - type: Integrations
+    url: https://www.callrail.com/integrations
   - type: LinkedIn
     url: https://www.linkedin.com/company/callrail
 
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+
+x-enrichment:
+  date: '2026-08-14'
+  status: enriched
+  artifacts_added: 23
+  pass: local-v1
