@@ -1,0 +1,14 @@
+{
+  "repo": "callrail",
+  "feeds": [
+    {
+      "source": "https://support.callrail.com/hc/en-us/community/topics",
+      "feed_url": "https://support.callrail.com/hc/en-us/community/topics",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-08-15T12:22:01Z"
+}
