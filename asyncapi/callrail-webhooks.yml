@@ -1,0 +1,157 @@
+generated: '2026-08-14'
+method: searched
+source: https://apidocs.callrail.com/#webhooks
+spec_type: none
+description: >-
+  CallRail publishes no AsyncAPI document. It does publish a full webhook reference — ten event
+  types, payload shapes, delivery semantics, and an HMAC signature scheme with a working test
+  vector. This artifact captures that event surface as published. Nothing here is inferred: every
+  event, field and rule below is transcribed from CallRail's own webhook documentation.
+transport: HTTP POST
+content_type: application/json
+subscription:
+  configured_in: CallRail application (per company), or via the v3 API
+  api_paths:
+    - POST /v3/a/{account_id}/integrations.json
+    - PUT /v3/a/{account_id}/integrations/{integration_id}.json
+  api_docs: https://apidocs.callrail.com/#configuring-integrations
+  note: >-
+    Webhooks are modelled as an integration; the Integrations endpoints carry a "Webhook
+    Configuration Object". A webhook subscribes to a chosen URL and a chosen set of triggering
+    events.
+payload_conventions:
+  body: >-
+    All attributes are available in the JSON POST body, which CallRail states is the recommended
+    format for new development.
+  query_string: >-
+    A limited number of attributes are also mirrored into the query string for legacy-API reasons.
+    CallRail explicitly recommends parsing the JSON body and ignoring the query string.
+  call_payload_shape: >-
+    The four inbound-call events and the two outbound-call events all send the call object as
+    documented under "Retrieving a Single Call".
+delivery:
+  expected_response: 2xx
+  retries: false
+  retry_note: >-
+    CallRail does not resend webhooks. A non-2xx response means the delivery is lost — missing
+    calls on the receiving side may be the first indication of a problem. Repeated failures can
+    result in automated disabling of the webhook integration.
+  ordering: not specified
+  common_failure_causes:
+    - Typos or invalid receiving URLs
+    - Receiving server rejecting URLs over a certain length
+security:
+  scheme: HMAC-SHA1, base64-encoded
+  header: Signature
+  secret: >-
+    CallRail generates a secret, random signing token per company, viewable on the Webhooks
+    configuration page in the application.
+  computation: base64(HMAC-SHA1(company_signing_key, raw_request_body))
+  reference_implementation: |
+    hmac = OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha1'), YOUR_COMPANY_SIGNING_KEY, request_payload)
+    signature = Base64.strict_encode64(hmac)
+  replay_protection: >-
+    Each webhook request includes a `timestamp` field derived from the request data, which the
+    receiver can compare against current time to reject replayed requests.
+  test_vector:
+    published: true
+    docs: https://apidocs.callrail.com/#validating-payloads
+    note: >-
+      CallRail publishes a documentation-only test signing key and the signature it must produce
+      over the sample call payload in the docs, so an implementer can verify their HMAC code before
+      going live. The key and expected signature are published in the reference; they are not
+      reproduced here to keep this repo free of secret-shaped strings.
+event_count: 10
+events:
+  - name: Pre-Call
+    trigger: The moment an inbound phone call is received by CallRail, before the call is connected.
+    payload: call object (subset — no duration, answered flag, or recording link yet)
+    use_case: Real-time screen-pops and CRM lookups for representatives.
+  - name: Call Routing Complete
+    trigger: The moment an inbound call has been routed to its destination.
+    payload: call object (more complete than Pre-Call, less than Post-Call)
+    use_case: Supplementing information shown to an agent while a call is in progress.
+  - name: Post-Call
+    trigger: >-
+      After an inbound call completes AND its recording, transcription and call summaries have
+      attached.
+    payload: call object (full)
+    latency: >-
+      Not real-time. Maximum 20-minute delay after hangup; the event fires at the 20-minute timeout
+      even if recording-related data is still missing.
+    guidance: >-
+      CallRail recommends also implementing Call Modified so that late recording, transcription or
+      call-summary data is not missed.
+  - name: Call Modified
+    trigger: A call changed after it ended — tag added, note written, recording attached, marked spam.
+    payload: call object with the modified values already applied, plus a `changes` array
+    fields:
+      - name: changes
+        description: >-
+          Array of the fields that changed. Documented members: tags, note, value,
+          transcription_text, call_summary, recording_duration, auto_score, manual_score.
+  - name: Outbound Post Call
+    trigger: After an outbound phone call has ended.
+    payload: call object with call_type set to "outbound"
+  - name: Outbound Call Modified
+    trigger: An outbound call changed after it ended (tag, note, etc.).
+    payload: call object with the modified values applied
+  - name: Text Message Received
+    trigger: A text message is received by one of your tracking numbers.
+    payload_fields:
+      - {name: id, description: Unique identifier for a specific text.}
+      - {name: resource_id, description: Unique alphanumeric identifier for the text message.}
+      - {name: source_number, description: The phone number that sent the text message.}
+      - {name: destination_number, description: The tracking number that was texted.}
+      - {name: content, description: The content of the text message.}
+      - {name: message_type, description: 'One of sms or mms.'}
+      - {name: media_urls, description: 'For MMS, an array of media URLs. Empty for SMS. Not long-lived — download immediately.'}
+      - {name: timestamp, description: Timestamp of receipt, with timezone offset.}
+      - {name: lead_status, description: 'One of good_lead, not_a_lead, previously_marked_good_lead, or null.'}
+      - {name: conversation_id, description: Unique identifier for the SMS conversation.}
+      - {name: company_resource_id, description: Unique identifier for the associated company.}
+      - {name: person_resource_id, description: Unique identifier for the associated person.}
+  - name: Text Message Sent
+    trigger: A text message is sent by one of your tracking numbers.
+    payload_fields:
+      - {name: id, description: Unique identifier for a specific text.}
+      - {name: resource_id, description: Unique alphanumeric identifier for the text message.}
+      - {name: agent, description: Name of the user who sent the text message.}
+      - {name: source_number, description: The phone number that sent the text message.}
+      - {name: destination_number, description: The number that was texted.}
+      - {name: content, description: The content of the text message.}
+      - {name: message_type, description: 'One of sms or mms.'}
+      - {name: media_urls, description: 'For MMS, an array of media URLs. Empty for SMS.'}
+      - {name: timestamp, description: Timestamp of send, with timezone offset.}
+      - {name: lead_status, description: 'One of good_lead, not_a_lead, previously_marked_good_lead, or null.'}
+      - {name: conversation_id, description: Unique identifier for the SMS conversation.}
+      - {name: company_resource_id, description: Unique identifier for the associated company.}
+      - {name: person_resource_id, description: Unique identifier for the associated person.}
+  - name: Form Submission
+    trigger: A form is submitted on your website (requires Form Tracking to be active).
+    payload_fields:
+      - {name: id, description: Unique identifier for a specific form submission.}
+      - {name: company_id, description: Unique identifier of the company receiving the form submission.}
+      - {name: form_data, description: 'The contents of the submission, broken down by form field.'}
+      - {name: form_url, description: The URL of the page the form was submitted from.}
+      - {name: landing_page_url, description: The URL the visitor first landed on.}
+      - {name: referrer, description: The URL that referred the visitor to your website.}
+      - {name: referring_url, description: The referrer's webpage.}
+      - {name: submitted_at, description: Timestamp of submission.}
+      - {name: first_form, description: Whether this is the first form submitted by this visitor.}
+      - {name: source, description: The marketing source that led to the form submission.}
+      - {name: keywords, description: 'Keywords the visitor searched for (paid ad sources only).'}
+      - {name: campaign, description: Marketing campaign attributed to the submission.}
+      - {name: medium, description: Marketing medium attributed to the submission.}
+      - {name: utm_source, description: UTM source parameter.}
+      - {name: utm_medium, description: UTM medium parameter.}
+      - {name: utm_campaign, description: UTM campaign parameter.}
+  - name: Convert Assist Complete
+    trigger: A Convert Assist run completes.
+    added: '2024-12-09'
+    note: Documented from the 2024-12-09 changelog entry onward.
+gaps:
+  - No AsyncAPI (or CloudEvents) document is published for this event surface.
+  - No delivery retry, dead-letter, or replay endpoint.
+  - No event-log / webhook-delivery inspection API.
+  - Signature algorithm is SHA-1 rather than SHA-256.

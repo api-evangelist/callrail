@@ -1,0 +1,73 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for CallRail Calls API
+  version: 1.0.0
+extends: openapi/callrail-calls-api-openapi.yml
+x-provenance:
+  generated: '2026-08-14'
+  method: generated
+  source: >-
+    Derived from https://apidocs.callrail.com/ during the API Evangelist enrichment pass. CallRail
+    publishes no OpenAPI of its own; this overlay records API Evangelist annotations without
+    mutating the spec file.
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: callrail
+      x-apievangelist-artifacts:
+        conventions: conventions/callrail-conventions.yml
+        errors: errors/callrail-problem-types.yml
+        rate-limits: rate-limits/callrail-rate-limits.yml
+        authentication: authentication/callrail-authentication.yml
+        webhooks: asyncapi/callrail-webhooks.yml
+        data-model: data-model/callrail-data-model.yml
+        mcp: mcp/callrail-mcp.yml
+      x-apievangelist-spec-provenance: >-
+        Not published by CallRail. Reconstructed from the public v3 reference at
+        https://apidocs.callrail.com/.
+  - target: $.info
+    update:
+      x-idempotency: none
+      x-idempotency-note: >-
+        No idempotency key. Retrying POST /a/{account_id}/calls.json can place a second real
+        outbound phone call.
+      x-data-retention:
+        window_months: 25
+        note: >-
+          Communication Records older than 25 months are deleted; requests for ranges outside the
+          window (including all_time) return an error.
+  - target: $.paths['/a/{account_id}/calls.json'].get
+    update:
+      x-pagination:
+        styles: [offset, relative]
+        relative_params: [relative_pagination, per_page, offset]
+        relative_response_fields: [next_page, has_next_page]
+        recommended: relative
+        per_page_max: 250
+      x-field-selection: [person_id, sentiment, transcription, zip_code, company_id, company_name]
+      x-entitlement:
+        transcription: Premium Conversation Intelligence
+        sentiment: Premium Conversation Intelligence
+      x-rate-limit:
+        hourly: 1000
+        daily: 10000
+  - target: $.paths['/a/{account_id}/calls.json'].post
+    update:
+      x-consequence: physical
+      x-consequence-note: Places a real outbound phone call. Not idempotent, not reversible.
+      x-rate-limit:
+        hourly: 100
+        daily: 2000
+        name: Outbound Call
+  - target: $.paths['/a/{account_id}/calls/{call_id}.json'].get
+    update:
+      x-field-selection: [person_id, sentiment, transcription, conversational_transcript, zip_code]
+      x-entitlement:
+        transcription: Premium Conversation Intelligence
+        conversational_transcript: Premium Conversation Intelligence
+        sentiment: Premium Conversation Intelligence
+  - target: $.paths['/a/{account_id}/calls/{call_id}.json'].put
+    update:
+      x-editable-fields: [customer_name, note, tags, value, spam]
+      x-webhook-effect: >-
+        Triggers the Call Modified webhook, whose `changes` array names the fields that changed.

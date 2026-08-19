@@ -1,0 +1,62 @@
+generated: '2026-08-14'
+method: searched
+source: https://apidocs.callrail.com/#rate-limiting
+description: >-
+  CallRail publishes default hourly and daily request ceilings per account, split by API type.
+  Exceeding a limit returns HTTP 429 on all endpoints. CallRail documents no RateLimit-* /
+  X-RateLimit-* response headers and no Retry-After header, so a client cannot read remaining quota
+  at runtime — the only runtime signal is the 429 itself.
+scope_model: per-account (limits are counted for the account making the requests)
+limit_count: 3
+limits:
+  - name: General API Requests
+    scope: per-account
+    window: hour
+    limit: 1000
+    burst: null
+  - name: General API Requests
+    scope: per-account
+    window: day
+    limit: 10000
+    burst: null
+  - name: SMS Send
+    scope: per-account
+    window: hour
+    limit: 150
+    burst: null
+    applies_to: POST /v3/a/{account_id}/text-messages.json
+  - name: SMS Send
+    scope: per-account
+    window: day
+    limit: 1000
+    burst: null
+    applies_to: POST /v3/a/{account_id}/text-messages.json
+  - name: Outbound Call
+    scope: per-account
+    window: hour
+    limit: 100
+    burst: null
+    applies_to: POST /v3/a/{account_id}/calls.json
+  - name: Outbound Call
+    scope: per-account
+    window: day
+    limit: 2000
+    burst: null
+    applies_to: POST /v3/a/{account_id}/calls.json
+exhaustion:
+  status_code: 429
+  status_meaning: Too Many Requests – The User or Agency has sent too many requests in a given amount of time.
+  guidance: >-
+    CallRail's docs say applications should detect the 429 and react by pausing or slowing requests
+    until the 429 clears.
+response_headers:
+  documented: []
+  note: >-
+    No rate-limit response headers are documented — no RateLimit-Limit/Remaining/Reset, no
+    X-RateLimit-*, no Retry-After. Not observed live either: every CallRail v3 endpoint requires an
+    API key, so an unauthenticated probe cannot surface headers on a real 2xx.
+increases:
+  process: >-
+    "If you expect that your application will require more requests, please contact our support
+    team." No self-serve limit increase and no published enterprise tier of limits.
+  contact: https://support.callrail.com/hc/en-us

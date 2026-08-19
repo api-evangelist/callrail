@@ -1,0 +1,1527 @@
+{
+  "item": [
+    {
+      "id": "1ee2fce3-4b57-495b-9443-c287bac3cbf9",
+      "name": "Calls",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6e04f5a6-1f1e-421d-8367-49037dcd4251",
+          "name": "List calls",
+          "request": {
+            "name": "List calls",
+            "description": {
+              "content": "List calls for an account. Supports offset or relative pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "a",
+                ":account_id",
+                "calls.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "relative_pagination",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "answered",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tracker_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of additional fields to include."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da3c21d3-d8df-4d89-a0e9-97d6ca9e543a",
+              "name": "A paginated list of calls.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "100"
+                    },
+                    {
+                      "key": "relative_pagination",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "answered",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tracker_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": 4734,\n  \"per_page\": 1859,\n  \"total_pages\": 8633,\n  \"total_records\": 7952,\n  \"calls\": [\n    {\n      \"id\": \"string\",\n      \"answered\": true,\n      \"business_phone_number\": \"string\",\n      \"customer_city\": \"string\",\n      \"customer_country\": \"string\",\n      \"customer_name\": \"string\",\n      \"customer_phone_number\": \"string\",\n      \"customer_state\": \"string\",\n      \"direction\": \"outbound\",\n      \"duration\": 5096,\n      \"recording\": \"http://aRWXAyKNtaSTyBCyKiVGJMLptgDen.puDGKHBWm1piGVk3fVTaOdxcxZLYG9EJL8I6qUgZmI\",\n      \"recording_duration\": 252,\n      \"start_time\": \"1953-04-06T15:38:29.261Z\",\n      \"tracking_phone_number\": \"string\",\n      \"voicemail\": false,\n      \"agent_email\": \"string\",\n      \"lead_status\": \"string\",\n      \"note\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"source\": \"string\",\n      \"campaign\": \"string\",\n      \"medium\": \"string\",\n      \"keywords\": \"string\",\n      \"landing_page_url\": \"string\",\n      \"referrer_domain\": \"string\",\n      \"company_id\": \"string\",\n      \"company_name\": \"string\",\n      \"tracker_id\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"answered\": true,\n      \"business_phone_number\": \"string\",\n      \"customer_city\": \"string\",\n      \"customer_country\": \"string\",\n      \"customer_name\": \"string\",\n      \"customer_phone_number\": \"string\",\n      \"customer_state\": \"string\",\n      \"direction\": \"inbound\",\n      \"duration\": 9270,\n      \"recording\": \"https://bOfQrEveqExyLGAPUujZEDwNQ.npE3yR-x7Bj6qCWJdjdTxIFPE01\",\n      \"recording_duration\": 2000,\n      \"start_time\": \"1987-12-09T07:50:52.362Z\",\n      \"tracking_phone_number\": \"string\",\n      \"voicemail\": false,\n      \"agent_email\": \"string\",\n      \"lead_status\": \"string\",\n      \"note\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"source\": \"string\",\n      \"campaign\": \"string\",\n      \"medium\": \"string\",\n      \"keywords\": \"string\",\n      \"landing_page_url\": \"string\",\n      \"referrer_domain\": \"string\",\n      \"company_id\": \"string\",\n      \"company_name\": \"string\",\n      \"tracker_id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f02b00b9-cf4e-4b04-9742-07c1beb07004",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "100"
+                    },
+                    {
+                      "key": "relative_pagination",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "answered",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tracker_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1dee11eb-2f57-4fff-a584-61bb758f58b6",
+              "name": "Rate limit exceeded (1,000/hour or 10,000/day).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "100"
+                    },
+                    {
+                      "key": "relative_pagination",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "answered",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tracker_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f74b1a27-7f03-4b7b-8e85-b7513cc7ec40",
+          "name": "Create outbound call",
+          "request": {
+            "name": "Create outbound call",
+            "description": {},
+            "url": {
+              "path": [
+                "a",
+                ":account_id",
+                "calls.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"caller_id\": \"<string>\",\n  \"customer_phone_number\": \"<string>\",\n  \"business_phone_number\": \"<string>\",\n  \"recording_enabled\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "461e16b3-0259-4463-b8a1-c8712a871c55",
+              "name": "Call created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"caller_id\": \"<string>\",\n  \"customer_phone_number\": \"<string>\",\n  \"business_phone_number\": \"<string>\",\n  \"recording_enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"answered\": false,\n  \"business_phone_number\": \"string\",\n  \"customer_city\": \"string\",\n  \"customer_country\": \"string\",\n  \"customer_name\": \"string\",\n  \"customer_phone_number\": \"string\",\n  \"customer_state\": \"string\",\n  \"direction\": \"inbound\",\n  \"duration\": 4578,\n  \"recording\": \"http://fcDznWPiHaVLtHYrjKxYw.zsgtafR9ASu.jjzlFm8Dz92MNv\",\n  \"recording_duration\": 5136,\n  \"start_time\": \"2009-12-31T15:52:06.329Z\",\n  \"tracking_phone_number\": \"string\",\n  \"voicemail\": false,\n  \"agent_email\": \"string\",\n  \"lead_status\": \"string\",\n  \"note\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"source\": \"string\",\n  \"campaign\": \"string\",\n  \"medium\": \"string\",\n  \"keywords\": \"string\",\n  \"landing_page_url\": \"string\",\n  \"referrer_domain\": \"string\",\n  \"company_id\": \"string\",\n  \"company_name\": \"string\",\n  \"tracker_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "659ae906-4d13-4ed2-a086-469260fe347a",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"caller_id\": \"<string>\",\n  \"customer_phone_number\": \"<string>\",\n  \"business_phone_number\": \"<string>\",\n  \"recording_enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04ae2d84-9a2a-4721-b4d7-86874e322a2d",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"caller_id\": \"<string>\",\n  \"customer_phone_number\": \"<string>\",\n  \"business_phone_number\": \"<string>\",\n  \"recording_enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "686d3257-a2df-4bbd-aeb1-e8c10de85e46",
+          "name": "Retrieve call",
+          "request": {
+            "name": "Retrieve call",
+            "description": {},
+            "url": {
+              "path": [
+                "a",
+                ":account_id",
+                "calls",
+                "{{call_id}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "337b75da-95fa-40db-94d7-cc5bdfb99786",
+              "name": "Call details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls",
+                    "{{call_id}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"answered\": false,\n  \"business_phone_number\": \"string\",\n  \"customer_city\": \"string\",\n  \"customer_country\": \"string\",\n  \"customer_name\": \"string\",\n  \"customer_phone_number\": \"string\",\n  \"customer_state\": \"string\",\n  \"direction\": \"inbound\",\n  \"duration\": 4578,\n  \"recording\": \"http://fcDznWPiHaVLtHYrjKxYw.zsgtafR9ASu.jjzlFm8Dz92MNv\",\n  \"recording_duration\": 5136,\n  \"start_time\": \"2009-12-31T15:52:06.329Z\",\n  \"tracking_phone_number\": \"string\",\n  \"voicemail\": false,\n  \"agent_email\": \"string\",\n  \"lead_status\": \"string\",\n  \"note\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"source\": \"string\",\n  \"campaign\": \"string\",\n  \"medium\": \"string\",\n  \"keywords\": \"string\",\n  \"landing_page_url\": \"string\",\n  \"referrer_domain\": \"string\",\n  \"company_id\": \"string\",\n  \"company_name\": \"string\",\n  \"tracker_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d518713-13db-48b6-9e5b-e648e963f225",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls",
+                    "{{call_id}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be6a1f18-413e-4085-93b9-d421f29376fe",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls",
+                    "{{call_id}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d12ec0c2-85c5-45a0-8af2-8e2aa8737c7e",
+          "name": "Update call",
+          "request": {
+            "name": "Update call",
+            "description": {
+              "content": "Update notes, tags, lead status, customer name, or spam flag.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "a",
+                ":account_id",
+                "calls",
+                "{{call_id}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"note\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"lead_status\": \"<string>\",\n  \"customer_name\": \"<string>\",\n  \"spam\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b2238502-b176-42c7-8f4d-65dd919b7476",
+              "name": "Call updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls",
+                    "{{call_id}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"note\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"lead_status\": \"<string>\",\n  \"customer_name\": \"<string>\",\n  \"spam\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"answered\": false,\n  \"business_phone_number\": \"string\",\n  \"customer_city\": \"string\",\n  \"customer_country\": \"string\",\n  \"customer_name\": \"string\",\n  \"customer_phone_number\": \"string\",\n  \"customer_state\": \"string\",\n  \"direction\": \"inbound\",\n  \"duration\": 4578,\n  \"recording\": \"http://fcDznWPiHaVLtHYrjKxYw.zsgtafR9ASu.jjzlFm8Dz92MNv\",\n  \"recording_duration\": 5136,\n  \"start_time\": \"2009-12-31T15:52:06.329Z\",\n  \"tracking_phone_number\": \"string\",\n  \"voicemail\": false,\n  \"agent_email\": \"string\",\n  \"lead_status\": \"string\",\n  \"note\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"source\": \"string\",\n  \"campaign\": \"string\",\n  \"medium\": \"string\",\n  \"keywords\": \"string\",\n  \"landing_page_url\": \"string\",\n  \"referrer_domain\": \"string\",\n  \"company_id\": \"string\",\n  \"company_name\": \"string\",\n  \"tracker_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c0fbe17-3e3e-4ac2-8387-0010f2e23073",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls",
+                    "{{call_id}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"note\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"lead_status\": \"<string>\",\n  \"customer_name\": \"<string>\",\n  \"spam\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0d15cad-3c19-4c84-a59d-f6f68f43cd4c",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls",
+                    "{{call_id}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"note\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"lead_status\": \"<string>\",\n  \"customer_name\": \"<string>\",\n  \"spam\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f4cd8ff-bf66-44aa-ae64-72e033d196db",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls",
+                    "{{call_id}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"note\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"lead_status\": \"<string>\",\n  \"customer_name\": \"<string>\",\n  \"spam\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea35f6c7-a76b-4f36-a6ff-2b69467df019",
+          "name": "Call summary",
+          "request": {
+            "name": "Call summary",
+            "description": {
+              "content": "Summarized call data grouped by source, keyword, campaign, etc.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "a",
+                ":account_id",
+                "calls",
+                "summary.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "group_by",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "318dc918-a3f8-48e7-bb37-6f303d7b3e7f",
+              "name": "Summary results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls",
+                    "summary.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"summary\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": true,\n      \"key_1\": 5255.763399660936,\n      \"key_2\": 4426,\n      \"key_3\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e424171a-5e99-4eb8-a3ba-59f42255b78a",
+          "name": "Call timeseries",
+          "request": {
+            "name": "Call timeseries",
+            "description": {
+              "content": "Call data grouped by time intervals.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "a",
+                ":account_id",
+                "calls",
+                "timeseries.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "time_zone",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "time_range",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c64b02da-871f-4d26-8459-38bb40544262",
+              "name": "Timeseries results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "a",
+                    ":account_id",
+                    "calls",
+                    "timeseries.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "time_zone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time_range",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timeseries\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 5585\n    },\n    {\n      \"key_0\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.callrail.com/v3",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "call_id"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "38cfd740-bf06-4bda-9ae3-13b5e5b3e22a",
+    "name": "CallRail v3 Accounts Calls API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST/JSON API for CallRail, a call tracking and conversation intelligence\nplatform. Exposes accounts, calls, and related summary/timeseries reporting.\n\n\nContact Support:\n Name: CallRail API Support",
+      "type": "text/plain"
+    }
+  }
+}

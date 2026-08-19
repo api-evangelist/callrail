@@ -1,0 +1,74 @@
+# CallRail
+
+> CallRail is a call tracking and conversation intelligence platform that attributes phone calls, texts, and form fills to marketing campaigns, and applies AI transcription, sentiment, and lead scoring to inbound conversations. The CallRail v3 API is a REST/JSON interface over accounts, companies, trackers, calls, texts, form submissions, leads, users, and integrations. CallRail also ships a hosted Model Context Protocol server and a documented webhook event surface.
+
+<!--
+generated: 2026-08-14
+method: generated
+source: apis.yml + repo artifacts. CallRail publishes no /llms.txt of its own — apidocs.callrail.com/llms.txt returns 404 and www.callrail.com/llms.txt returns the site's single-page-app HTML shell.
+-->
+
+## Start here
+
+- [CallRail v3 API reference](https://apidocs.callrail.com/): The complete developer reference — getting started, conventions, every resource, webhooks, MCP, and swap.js, on one page.
+- [Authorization](https://apidocs.callrail.com/#authorization): API keys are user-scoped and sent as `Authorization: Token token="YOUR_API_KEY"` — not `Bearer`.
+- [Your First API Request](https://apidocs.callrail.com/#your-first-api-request): Postman walkthrough against `GET /v3/a/{account_id}/companies.json`.
+- [Help Center — API](https://support.callrail.com/hc/en-us/sections/4426797289229-API): Support articles for API users.
+
+## APIs
+
+- [CallRail v3 API](https://apidocs.callrail.com/): REST/JSON at `https://api.callrail.com/v3/`. Resources: accounts, calls, call recordings, page views, companies, trackers, tags, form submissions, text messages, SMS threads, message flows, users, leads, lead timelines, integrations, integration filters, notifications, outbound caller IDs, summary emails.
+
+## Agent surfaces
+
+- [CallRail MCP server](https://apidocs.callrail.com/#mcp): Hosted, remote MCP server with 36 tools (22 read, 14 write), OAuth 2.0 login, and setup instructions for Claude.ai, Claude Desktop and ChatGPT. The endpoint URL is issued per account by CallRail and is not published.
+- [Webhooks](https://apidocs.callrail.com/#webhooks): Ten event types — Pre-Call, Call Routing Complete, Post-Call, Call Modified, Outbound Post Call, Outbound Call Modified, Text Message Received, Text Message Sent, Form Submission, Convert Assist Complete. HTTP POST, JSON body, HMAC-SHA1 `Signature` header. No retries.
+
+## Conventions
+
+- Pagination: offset (`page`, `per_page`; response `page`/`per_page`/`total_pages`/`total_records`) on all collections; relative pagination (`relative_pagination`, `offset`; response `next_page`/`has_next_page`) on Listing All Calls only.
+- Field selection: `fields=a,b` sparse fieldsets. Several fields (`person_id`, `sentiment`, `transcription`, `zip_code`) are only returned when explicitly requested.
+- Sorting: `sort` + `order` (`asc`|`desc`). Filtering and searching are per-endpoint.
+- Integration identity: third-party platforms should send `Request-From: your_software_name`.
+- Idempotency: none. Retrying a write can place a second call or send a second text.
+- Rate limits: 1,000/hour and 10,000/day general; SMS send 150/hour, 1,000/day; outbound call 100/hour, 2,000/day. HTTP 429 on exhaustion, with no rate-limit or Retry-After headers.
+- Data retention: Communication Records are deleted after 25 months; requests outside that window error.
+
+## Specs and artifacts
+
+- openapi/callrail-accounts-api-openapi.yml: Accounts operations. Reconstructed from the published reference — CallRail publishes no OpenAPI.
+- openapi/callrail-calls-api-openapi.yml: Calls operations, including summary and time series.
+- mcp/callrail-mcp.yml: MCP server manifest and full tool list.
+- mcp/callrail-tool-crosswalk.yml: Every MCP tool bound to its backing REST operation.
+- asyncapi/callrail-webhooks.yml: Webhook event catalog, payload fields, and signature scheme.
+- conventions/callrail-conventions.yml: Pagination, field selection, auth, error envelope, rate-limit signaling.
+- errors/callrail-problem-types.yml: Published HTTP status codes and remediation.
+- rate-limits/callrail-rate-limits.yml: Published ceilings and exhaustion behavior.
+- authentication/callrail-authentication.yml: API key and MCP OAuth profiles.
+- data-model/callrail-data-model.yml: Entity graph, id prefixes, and relationships.
+- lifecycle/callrail-lifecycle.yml: Versioning, retention policy, status page.
+- changelog/callrail-changelog.yml: Structured API changelog, 2020-01-30 through 2026-05-21.
+- plans/callrail-plans-pricing.yml: Public plan tiers and metering.
+- conformance/callrail-conformance.yml: Standards conformance and published compliance programs.
+- components/callrail-components.yml: swap.js Dynamic Number Insertion JavaScript API.
+- skills/: Packaged agent skills grounded in real operationIds.
+
+## Client-side
+
+- [swap.js](https://apidocs.callrail.com/#swap-js): Dynamic Number Insertion. `CallTrk.swap(nodeOrSelector)` and `CallTrk.getSwapNumbers(numbers, callback)`; `data-calltrk-noswap` opts an element out.
+
+## Company
+
+- [CallRail](https://www.callrail.com): Product site.
+- [Pricing](https://www.callrail.com/pricing): Lead Tracking $50/mo, Lead Tracking Complete $95/mo, Lead Conversion $150/mo, Lead Conversion Complete $195/mo, all metered beyond 5 numbers and 250 minutes. 14-day trial.
+- [Status](https://status.callrail.com/): Atlassian Statuspage.
+- [Security & Compliance](https://www.callrail.com/security): ISO 42001, SOC 2 Type II, HIPAA/HITECH, PCI, GDPR, CCPA.
+- [Trust Center](https://trust.callrail.com/): Documents, certifications, subprocessors.
+- [Vulnerability Disclosure Program](https://www.callrail.com/security/disclosure): Coordinated disclosure; not a bug bounty.
+- [GitHub](https://github.com/CallRail): No first-party client libraries are published in any package registry.
+
+## Notes for agents
+
+- There is no sandbox or test mode. Every write hits production: `POST /v3/a/{account_id}/calls.json` places a real phone call and `POST /v3/a/{account_id}/text-messages.json` sends a real SMS that is billed and carrier-regulated.
+- Transcript fields require a Premium Conversation Intelligence subscription and return null otherwise.
+- Resolve the account first — `GET /v3/a.json` — then use that `account_id` in every subsequent path.

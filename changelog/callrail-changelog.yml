@@ -1,0 +1,159 @@
+generated: '2026-08-14'
+method: searched
+source: https://apidocs.callrail.com/#changelog
+description: >-
+  CallRail maintains a dated API changelog inside the v3 reference itself. Entries are prose, dated
+  by day, and describe field additions, endpoint enhancements, webhook payload changes and policy
+  changes. There are no version numbers per entry — the API version has been v3 throughout — and no
+  RSS/Atom feed or separate changelog host.
+scheme:
+  versioning: uri-path
+  current_version: v3
+  entry_identifier: date
+  breaking_change_marker: none
+  feed: null
+entries:
+  - date: '2026-05-21'
+    type: restriction
+    breaking: true
+    highlights:
+      - >-
+        Access to transcript fields via the API and webhooks now requires a Premium Conversation
+        Intelligence subscription. `transcription` on Listing All Calls / Retrieving a Single Call
+        and `conversational_transcript` on Retrieving a Single Call return null for accounts
+        without API transcript access.
+  - date: '2026-05-05'
+    type: addition
+    breaking: false
+    highlights:
+      - Send a Text Message now supports MMS via `media_url` (public URL) or `media_file` (multipart upload).
+      - Text Message Received webhook now includes `message_type` and `media_urls`.
+  - date: '2025-04-28'
+    type: change
+    breaking: true
+    highlights:
+      - >-
+        The `id` field on Listing All Companies and Retrieving a Single Company now returns the
+        company's masked identifier, consistent with other CallRail resources.
+      - Text Message Sent webhook now includes `message_type` (sms|mms) and `media_urls`.
+  - date: '2025-04-08'
+    type: addition
+    breaking: false
+    highlights:
+      - >-
+        Listing All Conversations and Retrieving a Single Text Conversation now include a `type`
+        field (sms|mms) and a `media_urls` attribute.
+  - date: '2025-01-27'
+    type: addition
+    breaking: false
+    highlights:
+      - Listing All Conversations and Retrieving a Single Text Conversation now include `source` via field selection.
+  - date: '2024-12-09'
+    type: addition
+    breaking: false
+    highlights:
+      - Added support for Convert Assist Complete webhooks, with documentation.
+  - date: '2024-10-15'
+    type: addition
+    breaking: false
+    highlights:
+      - Listing All Calls / Retrieving a Single Call now include `zip_code` via field selection.
+  - date: '2024-09-10'
+    type: policy
+    breaking: false
+    highlights:
+      - >-
+        Outbound texting must identify the sender and include an approved opt-out keyword. On first
+        text to a lead (including via Send a Text Message), CallRail automatically appends opt-out
+        instructions if none were included. Approved: STOP, CANCEL, UNSUBSCRIBE, QUIT, END.
+  - date: '2024-08-27'
+    type: addition
+    breaking: false
+    highlights:
+      - >-
+        Listing All Calls / Retrieving a Single Call now include `sentiment` (Premium Conversation
+        Intelligence) and `transcription` via field selection.
+  - date: '2024-05-31'
+    type: addition
+    breaking: false
+    highlights:
+      - Listing All Users now includes a `companies` object.
+  - date: '2024-05-16'
+    type: addition
+    breaking: false
+    highlights:
+      - Listing All Calls / Retrieving a Single Call now include `person_id` via field selection.
+  - date: '2024-05-10'
+    type: addition
+    breaking: false
+    highlights:
+      - 'Companies endpoints: `swap_cookie_duration` now supports `swap_cookie_duration_unit`.'
+  - date: '2023-10-26'
+    type: removal
+    breaking: true
+    highlights:
+      - Passwords can no longer be managed via the API by any user; reset/change only in the app UI.
+  - date: '2023-07-19'
+    type: policy
+    breaking: false
+    highlights:
+      - >-
+        Carrier texting compliance: businesses sending text messages must register with The
+        Campaign Registry via CallRail (registration deadline 2023-07-31) or risk disruption to
+        outbound texting, replies, and automated text responses.
+  - date: '2023-04-13'
+    type: policy
+    breaking: true
+    highlights:
+      - >-
+        Data Retention Policy: Communication Records are retained 25 months, then automatically
+        deleted. Requests for records outside the retention period (including `all_time`) return an
+        error directing you to revise the date range.
+  - date: '2023-04-05'
+    type: addition
+    breaking: false
+    highlights:
+      - Listing All Form Submissions now returns a `milestones` object.
+  - date: '2023-03-22'
+    type: addition
+    breaking: false
+    highlights:
+      - Added `last_touch` milestone data to `milestones` on Listing All Calls / Retrieving a Single Call.
+  - date: '2023-03-03'
+    type: addition
+    breaking: false
+    highlights:
+      - Added Relative Pagination support to Listing All Calls for large data sets.
+  - date: '2022-09-20'
+    type: addition
+    breaking: false
+    highlights:
+      - Added `timeline_url` to Listing All Calls, Retrieving a Single Call, and Listing All Form Submissions.
+  - date: '2022-06-14'
+    type: addition
+    breaking: false
+    highlights:
+      - Added a `milestones` object to Listing All Calls and Retrieving a Single Call.
+  - date: '2022-06-09'
+    type: addition
+    breaking: false
+    highlights:
+      - Added support for updating form submission data via Updating a Form Submission.
+  - date: '2022-05-24'
+    type: addition
+    breaking: false
+    highlights:
+      - Updating a Call now allows edits to Customer Name and setting Spam status to true.
+  - date: '2020-01-30'
+    type: change
+    breaking: true
+    highlights:
+      - >-
+        Attribution fields (Source, Medium, Campaign, Referrer, Landing Page) now represent the
+        lead's first-touch milestone; `gclid`/`fbclid` return the most value associated with the
+        call even when first touch was another source.
+window:
+  oldest_entry: '2020-01-30'
+  newest_entry: '2026-05-21'
+  entries_captured: 23
+  note: This is the complete published changelog as of the fetch date, not a truncated window.

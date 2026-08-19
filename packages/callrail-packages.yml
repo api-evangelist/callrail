@@ -1,0 +1,104 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  npm registry search, RubyGems search + gem metadata, PyPI, Packagist, the CallRail GitHub
+  organization (https://github.com/CallRail), and https://apidocs.callrail.com/
+description: >-
+  CallRail publishes NO first-party client library in any package registry. Searched npm, PyPI,
+  RubyGems, Packagist and the CallRail GitHub organization on 2026-08-14; every CallRail-named
+  package found is third-party, and the CallRail org's only API-related repository is an archived
+  Ruby sample app. The docs' own "Your First API Request" onboarding path is Postman + curl, not an
+  SDK. Recorded here so the absence is explicit rather than unexamined.
+official_package_count: 0
+packages: []
+first_party_repositories:
+  - name: grapher-example
+    url: https://github.com/CallRail/grapher-example
+    language: Ruby
+    description: Sample project showing how to use the CallRail API in Ruby.
+    official: true
+    distribution: source-only
+    registry: none
+    version: null
+    published: '2018-01-22'
+    archived: true
+    note: >-
+      Archived; last push 2018-01-22. Not a client library and not distributed through any package
+      registry — it is the "Grapher - Ruby on Rails" example referenced at the end of the v3 docs.
+      `version: null` because there is no registry entry to read a version from.
+third_party_packages:
+  - language: ruby
+    registry: rubygems
+    name: callrail
+    url: https://rubygems.org/gems/callrail
+    install: gem install callrail
+    official: false
+    version: 0.2.9
+    published: '2023-04-07'
+    author: Michael Hoskison
+    source: https://github.com/mhoskiso/callrail
+    note: The most-established community Ruby wrapper. Last release 2023-04-07, three years before this pass.
+  - language: ruby
+    registry: rubygems
+    name: call_rail
+    url: https://rubygems.org/gems/call_rail
+    install: gem install call_rail
+    official: false
+    version: 0.1.0
+    published: '2018-02-24'
+    author: Aboobacker MK
+    source: https://github.com/redpanthers/call-rail
+    note: Abandoned — single 0.1.0 release in 2018.
+  - language: javascript
+    registry: npm
+    name: n8n-nodes-callrail
+    url: https://www.npmjs.com/package/n8n-nodes-callrail
+    install: npm install n8n-nodes-callrail
+    official: false
+    version: 0.8.0
+    published: '2026-08-05'
+    note: >-
+      Community n8n node covering CallRail webhooks and calls. The most actively maintained
+      CallRail package in any registry — more current than anything CallRail itself ships.
+  - language: javascript
+    registry: npm
+    name: '@kanopi/callrail-mcp'
+    url: https://www.npmjs.com/package/@kanopi/callrail-mcp
+    install: npx -y @kanopi/callrail-mcp
+    official: false
+    version: 1.0.1
+    published: '2026-07-01'
+    note: >-
+      Third-party local-stdio MCP server for the CallRail v3 API, published by Kanopi Studios. NOT
+      CallRail's own MCP server — CallRail ships a hosted remote one (see mcp/callrail-mcp.yml).
+  - language: javascript
+    registry: npm
+    name: '@pipedream/callrail'
+    url: https://www.npmjs.com/package/@pipedream/callrail
+    install: npm install @pipedream/callrail
+    official: false
+    version: 0.2.0
+    published: '2026-05-19'
+    note: Pipedream integration components, published by Pipedream rather than CallRail.
+  - language: javascript
+    registry: npm
+    name: callrail-node
+    url: https://www.npmjs.com/package/callrail-node
+    install: npm install callrail-node
+    official: false
+    version: 1.0.1
+    published: '2019-07-04'
+    note: Abandoned community Node wrapper.
+registries_searched:
+  - {registry: npm, result: 'no first-party package; 6 third-party packages recorded'}
+  - {registry: rubygems, result: 'no first-party gem; 2 third-party gems recorded'}
+  - {registry: pypi, result: 'no package — callrail, callrail-api and python-callrail all HTTP 404'}
+  - {registry: packagist, result: no CallRail package found}
+  - {registry: 'pkg.go.dev / crates.io / maven / nuget', result: not searched — CallRail publishes no library in any registry, so a per-language sweep would only re-confirm the same absence}
+postman:
+  first_party: false
+  note: >-
+    The v3 docs teach the first request through Postman, but CallRail publishes no workspace of its
+    own. The public "CallRail" Postman workspace (postman.com/postman-atlas/callrail, 16
+    collections) is published by Postman's own Atlas team, not by CallRail, and two more are
+    published by an unaffiliated individual. No Postman pointer is emitted for this provider.

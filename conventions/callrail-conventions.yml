@@ -1,0 +1,118 @@
+generated: '2026-08-14'
+method: searched
+source: https://apidocs.callrail.com/
+description: >-
+  Cross-cutting request/response semantics for the CallRail v3 REST API, read from the "Getting
+  Started" section of the published reference and cross-checked against the OpenAPI in this repo.
+base_url: https://api.callrail.com/v3
+media_type: application/json
+architecture: >-
+  REST over HTTP with JSON request and response bodies. Every resource path ends in `.json`, and
+  account-scoped resources are nested under /a/{account_id}/.
+http_methods:
+  GET: Requests data from a target resource. Always retrieves.
+  POST: Submits data to create a resource. Always creates.
+  PUT: Submits data to update a target resource. Always updates.
+  DELETE: Deletes the target resource.
+  note: No PATCH. CallRail uses PUT for partial updates.
+authentication:
+  style: api-key-header
+  header: Authorization
+  format: 'Authorization: Token token="YOUR_API_KEY"'
+  scope: >-
+    API keys are scoped to an individual user and see exactly the data that user sees in the
+    CallRail interface. Calls placed to accounts or companies the user has no access to are not
+    returned. Anyone holding the key can read or modify anything that user controls.
+  required_on: all endpoints
+  detail: authentication/callrail-authentication.yml
+client_identification:
+  header: Request-From
+  required: false
+  applies_to: third-party platforms offering a CallRail integration
+  convention: >-
+    Lowercased software name with underscores replacing spaces, e.g. `Request-From: hanks_hotdogs`.
+    CallRail customers calling the API for their own data do not need to send it.
+idempotency:
+  supported: false
+  note: >-
+    CallRail documents no idempotency key, no request-deduplication header, and no retry-safety
+    contract for POST. Retrying a POST /v3/a/{account_id}/calls.json or
+    POST /v3/a/{account_id}/text-messages.json can place a second call or send a second message.
+    Recorded as an honest absence — no Idempotency pointer is emitted for this provider.
+pagination:
+  styles:
+    - name: offset
+      default: true
+      applies_to: all collection endpoints
+      params:
+        - {name: page, type: integer, required: false, default: 1, description: Page number to return.}
+        - {name: per_page, type: integer, required: false, default: 100, description: Objects per page. Most endpoints cap at 250.}
+      response_fields: [page, per_page, total_pages, total_records]
+    - name: relative
+      default: false
+      applies_to: GET /v3/a/{account_id}/calls.json only
+      recommended_for: large call datasets, for performance
+      params:
+        - {name: relative_pagination, type: boolean, required: false, default: false, description: Set true to enable relative pagination.}
+        - {name: per_page, type: integer, required: false, default: 100, description: Objects per page. Max 250 on this endpoint.}
+        - {name: offset, type: integer, required: false, description: 'Navigate directly to a page; the first page is offset=0.'}
+      response_fields: [next_page, has_next_page]
+      caveats:
+        - Page n+1 may not start exactly at the end of page n if a new call arrives between fetches.
+        - Do not mix relative and offset pagination across requests for the same dataset.
+sorting:
+  params:
+    - {name: sort, type: string, required: false, description: 'Field to sort by; acceptable fields are per-endpoint.'}
+    - {name: order, type: string, required: false, enum: [asc, desc], description: 'Sort direction. If provided, sort is required.'}
+  note: Sorting is always alphabetical or reverse-chronological (newest first).
+field_selection:
+  param: fields
+  style: comma-separated field names
+  example: GET /v3/a/{account_id}/calls/444941612.json?fields=company_id,company_name
+  note: >-
+    Sparse-fieldset style. Available on both collection and single-object endpoints; each endpoint
+    documents its own "Additional User Requested Response Fields" set. Several high-value fields
+    (person_id, sentiment, transcription, zip_code) are ONLY returned when explicitly requested via
+    field selection.
+filtering:
+  supported: true
+  note: Per-endpoint filter fields; each endpoint documents which fields are filterable.
+  date_filtering:
+    modes: [standard date range, specific dates]
+    params_documented: [start_date, end_date, all_time]
+    retention_caveat: >-
+      Communication Records are retained 25 months. Requesting a date range (including all_time)
+      that reaches outside the retention window returns an error directing you to revise the range.
+searching:
+  supported: true
+  note: Per-endpoint search parameter documented in the "Searching" section.
+time_zones:
+  note: >-
+    The reference publishes a full IANA timezone/offset table; timestamps are returned with a
+    timezone offset (e.g. 2018-02-19T13:41:00.236-05:00).
+versioning:
+  scheme: uri-path
+  current: v3
+  detail: lifecycle/callrail-lifecycle.yml
+error_envelope:
+  format: json
+  rfc9457: false
+  note: >-
+    "For errors, extra information about what went wrong will be encoded in the response as JSON."
+    CallRail publishes an HTTP status-code table but no problem+json media type, no stable error
+    `type` URIs, and no machine-readable error-code registry.
+  detail: errors/callrail-problem-types.yml
+rate_limit_signaling:
+  status_code: 429
+  headers: []
+  note: >-
+    No RateLimit-*/X-RateLimit-*/Retry-After headers documented. The 429 status is the only runtime
+    signal.
+  detail: rate-limits/callrail-rate-limits.yml
+webhook_semantics:
+  detail: asyncapi/callrail-webhooks.yml
+  signature: HMAC-SHA1 over the raw request body, base64-encoded, sent in a Signature header
+  retries: >-
+    None. CallRail explicitly does not resend webhooks; repeated failures can auto-disable the
+    webhook integration.
+  replay_protection: Each payload carries a timestamp field to compare against current time.

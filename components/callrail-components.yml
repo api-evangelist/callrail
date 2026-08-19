@@ -1,0 +1,58 @@
+generated: '2026-08-14'
+method: searched
+source: https://apidocs.callrail.com/#swap-js
+description: >-
+  CallRail's only client-side component surface is swap.js, the Dynamic Number Insertion script.
+  It is a per-company hosted script that rewrites phone numbers in the DOM to the correct tracking
+  number and captures form submissions, and it exposes a small documented JavaScript API for
+  advanced/SPA use. There is no element library, no embeddable dashboard, and no npm-distributed
+  UI package.
+families:
+  - name: swap.js
+    kind: hosted-script
+    purpose: Dynamic Number Insertion (DNI) and form submission capture
+    distribution: >-
+      Company-specific script served by CallRail and installed on the customer's website; not
+      published to npm or a CDN registry, so there is no package version to record.
+    version: null
+    version_note: >-
+      Unversioned in the customer-facing distribution — the script tag is issued per company and
+      floats to whatever CallRail currently serves. A consumer cannot pin or tell what they are
+      getting.
+    docs: https://apidocs.callrail.com/#swap-js
+    html_api:
+      - attribute: data-calltrk-noswap
+        applies_to: any element
+        description: >-
+          Marks an element (and its children) as excluded from number swapping. Useful to keep the
+          original number visible in one region, or to skip large regions for performance.
+      - attribute: data-calltrk-nosubmit
+        applies_to: form elements
+        description: >-
+          Documented in the Form Submission section as the markup opt-out for form capture.
+        confidence: medium
+        note: >-
+          Named in the docs' Form Submission HTML Markup example; recorded as documented, not
+          verified against a live page.
+    javascript_api:
+      - name: CallTrk.swap(nodeOrSelector)
+        description: >-
+          Re-scans the DOM and attempts to swap phone numbers again. Parameter optional — omitted,
+          processing starts at document.body. A DOM node scopes to that node and its children; a
+          CSS selector is resolved with document.querySelectorAll (no jQuery dependency).
+        use_case: Content added to the page after initial load.
+      - name: CallTrk.getSwapNumbers(numbers, callback)
+        description: >-
+          Returns the swap settings for the current page so the caller can perform number insertion
+          manually. Accepts an array of 10-digit numbers with no separators; the callback receives
+          an object keyed by swap target with the tracking number to display. Asynchronous — a
+          request to CallRail servers may be required — so the callback must be used rather than
+          the return value.
+        use_case: Single-page applications whose templating engine would otherwise overwrite swapped numbers.
+        caveats:
+          - Queried numbers may have no replacement if the swap target is unknown or the keyword pool is temporarily exhausted.
+          - The caller is responsible for locale-appropriate formatting of the returned number.
+gaps:
+  - No versioned/pinnable distribution of swap.js and no published changelog for it.
+  - No npm package, no TypeScript types, no integrity hash for the script tag.
+  - No embeddable reporting or dashboard component.

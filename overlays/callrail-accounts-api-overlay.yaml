@@ -1,0 +1,59 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for CallRail Accounts API
+  version: 1.0.0
+extends: openapi/callrail-accounts-api-openapi.yml
+x-provenance:
+  generated: '2026-08-14'
+  method: generated
+  source: >-
+    Derived from https://apidocs.callrail.com/ during the API Evangelist enrichment pass. CallRail
+    publishes no OpenAPI of its own; this overlay records API Evangelist annotations without
+    mutating the spec file.
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: callrail
+      x-apievangelist-artifacts:
+        conventions: conventions/callrail-conventions.yml
+        errors: errors/callrail-problem-types.yml
+        rate-limits: rate-limits/callrail-rate-limits.yml
+        authentication: authentication/callrail-authentication.yml
+        lifecycle: lifecycle/callrail-lifecycle.yml
+        data-model: data-model/callrail-data-model.yml
+        mcp: mcp/callrail-mcp.yml
+      x-apievangelist-spec-provenance: >-
+        Not published by CallRail. Reconstructed from the public v3 reference at
+        https://apidocs.callrail.com/.
+  - target: $.info
+    update:
+      x-idempotency: none
+      x-idempotency-note: >-
+        CallRail documents no idempotency key or request-deduplication contract for write
+        operations.
+  - target: $.components.securitySchemes.TokenAuth
+    update:
+      x-auth-format: 'Authorization: Token token="YOUR_API_KEY"'
+      x-auth-scope-model: >-
+        Key inherits the full visibility of the CallRail user who created it. No permission scopes.
+      x-auth-docs: https://apidocs.callrail.com/#authorization
+  - target: $.paths['/a.json'].get
+    update:
+      x-pagination:
+        style: offset
+        params: [page, per_page]
+        response_fields: [page, per_page, total_pages, total_records]
+        per_page_default: 100
+        per_page_max: 250
+      x-sortable-fields: [name]
+      x-filterable-fields: [hipaa_account]
+      x-field-selection: [numeric_id]
+      x-rate-limit:
+        hourly: 1000
+        daily: 10000
+  - target: $.paths['/a/{account_id}.json'].get
+    update:
+      x-field-selection: [numeric_id]
+      x-rate-limit:
+        hourly: 1000
+        daily: 10000

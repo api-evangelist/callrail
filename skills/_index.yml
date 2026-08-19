@@ -1,0 +1,31 @@
+generated: '2026-08-14'
+method: generated
+source: openapi/callrail-accounts-api-openapi.yml, openapi/callrail-calls-api-openapi.yml, https://apidocs.callrail.com/
+description: >-
+  Packaged Agent Skills for the CallRail v3 API. Every step is grounded in an operationId that
+  exists verbatim in this repo's OpenAPI; every convention, limit and error rule is transcribed
+  from CallRail's published reference. CallRail publishes no skills or AGENTS.md of its own, so
+  these are API Evangelist generations, not provider artifacts.
+skills:
+  - file: callrail-attribution-report.md
+    name: Build a CallRail call attribution report
+    api: openapi/callrail-calls-api-openapi.yml
+    operations: [listAccounts, getCallSummary, getCallTimeseries]
+    access: read
+  - file: callrail-triage-calls.md
+    name: Triage and annotate CallRail calls
+    api: openapi/callrail-calls-api-openapi.yml
+    operations: [listAccounts, listCalls, getCall, updateCall]
+    access: read-write
+  - file: callrail-place-outbound-call.md
+    name: Place an outbound call through CallRail
+    api: openapi/callrail-calls-api-openapi.yml
+    operations: [listAccounts, createCall, getCall]
+    access: write
+    consequence: physical
+    note: Places a real phone call. Irreversible, billed, no idempotency key, no sandbox.
+coverage_note: >-
+  Skills cover the accounts and calls surface, which is what this repo has OpenAPI for. Trackers,
+  companies, form submissions, text messages, SMS threads, message flows, users, leads and
+  integrations are documented by CallRail but have no operationIds here yet, so no skill is written
+  against them — grounding a skill in an operationId that does not exist would be fabrication.

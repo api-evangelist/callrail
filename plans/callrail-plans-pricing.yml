@@ -1,0 +1,123 @@
+generated: '2026-08-14'
+method: searched
+source: https://www.callrail.com/pricing
+description: >-
+  CallRail publishes public, self-serve list pricing for four packaged plans plus an AI Voice
+  Assistant add-on. Plans are priced per month with a yearly/monthly toggle (CallRail advertises
+  "save up to 10% with a yearly plan"); the prices below are the figures rendered on the public
+  pricing page. Every plan is metered — the base fee includes 5 tracking numbers and 250 minutes,
+  and usage beyond that is billed in addition to the base fee. All plans carry a 14-day free trial.
+  The API is not a separately priced product: API access is part of the platform, and API rate
+  limits (see rate-limits/) are the same defaults for every account.
+currency: USD
+billing_periods: [monthly, yearly]
+trial:
+  available: true
+  length_days: 14
+  card_required: unknown
+plan_count: 4
+plans:
+  - name: Lead Tracking
+    price: 50
+    currency: USD
+    period: month
+    included:
+      numbers: 5
+      minutes: 250
+    features:
+      - Call & text tracking and attribution
+      - Call recording and routing
+      - Call transcription and analysis
+      - Automation rules
+    overage: >-
+      "plus additional usage" — additional minutes and numbers beyond the plan allowance are billed
+      on top of the base fee. Per-unit overage rates are not published on the pricing page.
+  - name: Lead Tracking Complete
+    price: 95
+    currency: USD
+    period: month
+    included:
+      numbers: 5
+      minutes: 250
+    features:
+      - Everything in Lead Tracking
+      - Form tracking & attribution
+      - Custom form builder
+      - Multi-touch CPL reporting
+    overage: plus additional usage
+  - name: Lead Conversion
+    price: 150
+    currency: USD
+    period: month
+    included:
+      numbers: 5
+      minutes: 250
+    features:
+      - Everything in Lead Tracking
+      - Premium Conversation Intelligence
+      - Call transcripts
+      - Keyword analysis
+      - Call summaries & sentiment analysis
+      - Conversation trend reports
+      - Automatic conversion tagging
+    overage: plus additional usage
+    api_note: >-
+      Relevant to API consumers: as of the 2026-05-21 changelog entry, access to transcript fields
+      via the API and webhooks requires a Premium Conversation Intelligence subscription. Without
+      it, the `transcription` field on Listing All Calls / Retrieving a Single Call and the
+      `conversational_transcript` field on Retrieving a Single Call return null.
+  - name: Lead Conversion Complete
+    price: 195
+    currency: USD
+    period: month
+    included:
+      numbers: 5
+      minutes: 250
+    features:
+      - Everything in Lead Tracking
+      - Form tracking & attribution
+      - Custom form builder
+      - Multi-touch CPL reporting
+      - Premium Conversation Intelligence
+      - Call transcripts
+      - Keyword analysis
+      - Call summaries & sentiment analysis
+      - Conversation trend reports
+      - Automatic conversion tagging
+    overage: plus additional usage
+add_ons:
+  - name: AI Voice Assistant (Voice Assist)
+    price_from: 95
+    currency: USD
+    period: month
+    note: >-
+      Published as "Starts at $95/month". CallRail's own footnote: "All plans include Lead Tracking
+      starting at an additional $55. Additional $1/call after 50 Voice Assist calls over 15
+      seconds." (A second rendering of the same block on the page says 55 calls rather than 50 —
+      recorded as published, not reconciled.)
+enterprise:
+  available: true
+  url: https://www.callrail.com/enterprise
+  note: Contact-sales tier alongside the published self-serve plans.
+billing_terms:
+  overage_policy: >-
+    "We'll continue to track your leads, but additional minutes and numbers not included in the
+    chosen plan will be billed in addition to your base fee. These additional fees are not
+    refundable under any circumstances but you can always upgrade your pricing plan as your
+    business grows."
+  monthly: >-
+    Each month CallRail invoices the base fee for the upcoming month plus the additional usage from
+    the previous month, on the customer's signup anniversary day.
+  annual: >-
+    The base fee for the upcoming 12 months is due on payment-method entry; additional usage for
+    each previous month is billed monthly on the same day.
+  minute_rounding: Minutes are calculated by rounding each call up to the nearest minute, then summing.
+x-evidence:
+  fetched: '2026-08-14'
+  url: https://www.callrail.com/pricing
+  http_status: 200
+  note: >-
+    callrail.com is an Angular/Builder.io single-page app; a plain GET returns a 20,934-byte shell
+    with no prices. The figures above were read from the site's own prerendered response (fetched
+    with a Prerender/Googlebot user agent, HTTP 200, 164,121 bytes), which is what CallRail serves
+    to crawlers.

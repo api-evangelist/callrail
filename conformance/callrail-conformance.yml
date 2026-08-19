@@ -1,0 +1,113 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://apidocs.callrail.com/ (API reference + conventions), https://www.callrail.com/security
+  (Security & Compliance), https://trust.callrail.com/ (Trust Center),
+  openapi/callrail-accounts-api-openapi.yml, openapi/callrail-calls-api-openapi.yml
+description: >-
+  Which cross-cutting technical standards the CallRail v3 API conforms to, and which compliance
+  programs CallRail publishes. Technical entries are derived from the published reference and the
+  OpenAPI in this repo; compliance entries are CallRail's own published certifications.
+standards:
+  - id: rest-json
+    conforms: true
+    evidence: >-
+      Docs state the API "adheres to REST architectural principles" and "sends and receives data in
+      JSON format"; GET/POST/PUT/DELETE map to read/create/update/delete.
+  - id: openapi
+    conforms: false
+    evidence: >-
+      CallRail publishes no OpenAPI/Swagger document. Probed /openapi.json, /openapi.yaml,
+      /swagger.json, /v1/openapi.json, /api-docs and /docs on api.callrail.com (all 404) and
+      apidocs.callrail.com (all 404). The specs in openapi/ are API Evangelist derivations from the
+      published reference, not provider artifacts.
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      Ten webhook event types are documented in prose with payload field tables, but no AsyncAPI
+      document is published. See asyncapi/callrail-webhooks.yml.
+  - id: webhooks
+    conforms: true
+    evidence: >-
+      Published webhook catalog with HTTP POST delivery, JSON payloads, per-company HMAC signing
+      key, Signature header, and a published signature test vector.
+  - id: oauth2
+    conforms: partial
+    evidence: >-
+      The v3 REST API does NOT use OAuth — it authenticates with a user-scoped API key in the
+      Authorization header. CallRail's hosted MCP server DOES use OAuth 2.0 to authenticate the
+      end user, per https://apidocs.callrail.com/#mcp, but publishes no authorization-server
+      metadata, no scope reference, and no endpoint host, so nothing about the flow is
+      machine-discoverable.
+  - id: oidc
+    conforms: false
+    evidence: No /.well-known/openid-configuration on any CallRail host (all 404 or SPA shell).
+  - id: rfc8414-oauth-authorization-server-metadata
+    conforms: false
+    evidence: No /.well-known/oauth-authorization-server document reachable anonymously.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: >-
+      No /.well-known/security.txt on any host, despite a real published vulnerability disclosure
+      program at https://www.callrail.com/security/disclosure.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors are plain JSON with an HTTP status table; no application/problem+json, no error `type`
+      URIs. See errors/callrail-problem-types.yml.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No Sunset or Deprecation header support and no deprecation policy published.
+  - id: rfc6585-429
+    conforms: true
+    evidence: HTTP 429 is returned on rate-limit exhaustion across all endpoints.
+  - id: ietf-ratelimit-headers
+    conforms: false
+    evidence: >-
+      No RateLimit-*/X-RateLimit-*/Retry-After headers documented, so a client cannot read
+      remaining quota or a retry hint at runtime.
+  - id: idempotency-key
+    conforms: false
+    evidence: >-
+      No idempotency key or request-deduplication contract. Retried writes (outbound call
+      creation, text message send) can duplicate a real-world side effect.
+  - id: pagination
+    conforms: true
+    evidence: >-
+      Two documented styles — offset (page/per_page with total_pages/total_records) on all
+      collections, and relative (relative_pagination/offset with next_page/has_next_page) on
+      Listing All Calls.
+  - id: sparse-fieldsets
+    conforms: true
+    evidence: '`fields` query parameter with comma-separated field names, on collection and single-object endpoints.'
+  - id: json-api
+    conforms: false
+    evidence: Not a JSON:API implementation — no type/id/attributes envelope, no application/vnd.api+json.
+  - id: mcp
+    conforms: true
+    evidence: >-
+      CallRail publishes a hosted Model Context Protocol server with 36 documented tools and an
+      OAuth 2.0 login, with setup instructions for Claude.ai, Claude Desktop and ChatGPT. See
+      mcp/callrail-mcp.yml.
+  - id: a2a-agent-card
+    conforms: false
+    evidence: >-
+      /.well-known/agent-card.json and /.well-known/agent.json probed on api.callrail.com,
+      apidocs.callrail.com, app.callrail.com (404) and www.callrail.com (200 SPA shell, not a card).
+  - id: llms-txt
+    conforms: false
+    evidence: >-
+      No /llms.txt. apidocs.callrail.com/llms.txt returns 404; www.callrail.com/llms.txt returns
+      200 with the Angular app shell, not an llms.txt document.
+compliance:
+  published: true
+  page: https://www.callrail.com/security
+  trust_center: https://trust.callrail.com/
+  programs:
+    - {name: ISO 42001, scope: AI Management System}
+    - {name: SOC 2 Type II, scope: Service organization controls}
+    - {name: HIPAA/HITECH, scope: Protected health information; account object exposes a hipaa_account flag}
+    - {name: PCI, scope: PII redaction on recordings and transcripts}
+    - {name: GDPR, scope: EU data protection}
+    - {name: CCPA, scope: California consumer privacy}
+  detail: security/callrail-trust-center.yml

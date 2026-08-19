@@ -1,0 +1,54 @@
+generated: '2026-08-14'
+method: searched
+source: https://apidocs.callrail.com/
+versioning:
+  scheme: uri-path
+  current: v3
+  base: https://api.callrail.com/v3
+  docs: https://apidocs.callrail.com/
+  note: >-
+    A single live version. CallRail's docs refer to a "Legacy API" whose extra fields still leak
+    into webhook payloads and query strings, and advise building only against the v3-documented
+    parameters — but no legacy version is separately documented or dated for removal.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    CallRail publishes no deprecation policy, no notice period, and no RFC 8594 Sunset/Deprecation
+    header support. Breaking changes are announced only as dated changelog prose — e.g. the
+    2023-10-26 removal of password management from the API and the 2026-05-21 gating of transcript
+    fields behind a Premium Conversation Intelligence subscription both landed as changelog
+    entries with no advance-notice window stated.
+data_retention:
+  policy: >-
+    Communication Records — phone calls, call recordings, text messages, chat logs, form
+    submissions, web visitor sessions and other data types — are retained for 25 months and then
+    automatically deleted.
+  api_effect: >-
+    Requests to Communication Record endpoints for dates outside the retention window, including
+    requests using the `all_time` date parameter, return an error directing you to revise the date
+    range. This is a hard, dated boundary on what any integration or agent can read.
+  source: https://apidocs.callrail.com/#changelog
+  effective: '2023-04-13'
+status_page:
+  url: https://status.callrail.com/
+  provider: Atlassian Statuspage
+  subscriptions: [email, sms]
+  http_status: 200
+  fetched: '2026-08-14'
+sla:
+  url: null
+  uptime_target: null
+  note: No public SLA or uptime commitment published on the developer or legal surfaces.
+changelog:
+  url: https://apidocs.callrail.com/#changelog
+  detail: changelog/callrail-changelog.yml
+  cadence: irregular; newest published entry 2026-05-21
+support:
+  help_center: https://support.callrail.com/hc/en-us
+  api_section: https://support.callrail.com/hc/en-us/sections/4426797289229-API
+  community: https://support.callrail.com/hc/en-us/community/topics
+deprecated_operations: []
+deprecated_operations_note: "No operation in this repo's OpenAPI carries `deprecated: true`."

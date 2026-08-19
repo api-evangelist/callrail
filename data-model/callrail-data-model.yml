@@ -1,0 +1,158 @@
+generated: '2026-08-14'
+method: derived
+source: >-
+  openapi/callrail-accounts-api-openapi.yml, openapi/callrail-calls-api-openapi.yml, and the
+  resource reference at https://apidocs.callrail.com/
+description: >-
+  Entity-relationship graph for the CallRail v3 API, derived from the OpenAPI schemas in this repo
+  and from the path nesting and id-reference fields documented in the v3 reference. Every entity,
+  field and id prefix below appears in CallRail's own documentation or example payloads — nothing
+  is inferred beyond the relationship edges the paths and reference fields make explicit.
+root: Account
+id_conventions:
+  style: >-
+    Masked, prefixed alphanumeric resource identifiers. Older/legacy numeric ids still appear in
+    some payloads and query strings.
+  prefixes:
+    - {prefix: 'ACC', entity: Account, example_source: 'Listing All Accounts response'}
+    - {prefix: 'COM', entity: Company, example_source: 'Field Selection example payload'}
+    - {prefix: 'SCI', entity: TextMessage, example_source: 'Text Message webhook payload (resource_id)'}
+    - {prefix: 'PER', entity: Person, example_source: 'Text Message webhook payload (person_resource_id)'}
+    - {prefix: 'MFL', entity: MessageFlow, example_source: 'Message flow endpoint URLs'}
+  note: >-
+    The 2025-04-28 changelog entry moved Company `id` from a numeric id to the masked identifier,
+    "consistent with how other CallRail resources are identified across the API" — a breaking id
+    format change worth knowing before binding to older payloads.
+entities:
+  - name: Account
+    path: /v3/a.json, /v3/a/{account_id}.json
+    operations: [listAccounts, getAccount]
+    fields: [id, name, outbound_recording_enabled, hipaa_account, numeric_id]
+    note: Top-level object. Everything else is nested under an account.
+  - name: Company
+    path: /v3/a/{account_id}/companies.json
+    fields: [id, name, swap_cookie_duration, swap_cookie_duration_unit]
+    note: A tenant within an account; owns trackers, calls, texts and form submissions.
+  - name: Tracker
+    path: /v3/a/{account_id}/trackers.json
+    kinds: [source tracker, session (keyword pool) tracker]
+    note: A tracking number or pool. Carries a call flow configuration and a call source configuration.
+  - name: Call
+    path: /v3/a/{account_id}/calls.json
+    operations: [listCalls, getCall, createCall, updateCall, getCallSummary, getCallTimeseries]
+    fields:
+      - id
+      - company_id
+      - company_name
+      - tracker_id
+      - person_id
+      - customer_phone_number
+      - tracking_phone_number
+      - direction
+      - duration
+      - answered
+      - start_time
+      - recording
+      - recording_duration
+      - transcription
+      - conversational_transcript
+      - sentiment
+      - lead_status
+      - tags
+      - note
+      - value
+      - milestones
+      - timeline_url
+      - zip_code
+    gated_fields:
+      - {field: transcription, requires: Premium Conversation Intelligence, since: '2026-05-21'}
+      - {field: conversational_transcript, requires: Premium Conversation Intelligence, since: '2026-05-21'}
+      - {field: sentiment, requires: Premium Conversation Intelligence, since: '2024-08-27'}
+  - name: CallRecording
+    path: /v3/a/{account_id}/calls/{call_id}/recording.json
+    note: Separate endpoint with a distinct response shape for HIPAA agencies.
+  - name: PageView
+    path: /v3/a/{account_id}/calls/{call_id}/page_views.json
+    note: The browsing session associated with a session-tracker call.
+  - name: FormSubmission
+    path: /v3/a/{account_id}/form_submissions.json
+    fields: [id, company_id, form_data, form_url, landing_page_url, referrer, submitted_at, first_form, source, milestones, timeline_url]
+  - name: TextMessage
+    path: /v3/a/{account_id}/text-messages.json
+    fields: [id, resource_id, source_number, destination_number, content, message_type, media_urls, timestamp, lead_status, conversation_id, company_resource_id, person_resource_id]
+  - name: SmsThread
+    path: /v3/a/{account_id}/sms-threads.json
+    note: Thread-level state over text messages; a separate resource family from text-messages.
+  - name: MessageFlow
+    path: /v3/a/{account_id}/message-flows.json
+    step_types: [schedule, response, tag, no-response, forward-message]
+    note: Automated SMS response configuration, composed of typed steps.
+  - name: Tag
+    path: /v3/a/{account_id}/tags.json
+    fields: [id, name, color]
+  - name: User
+    path: /v3/a/{account_id}/users.json
+    fields: [id, email, first_name, last_name, name, role, created_at, companies]
+    roles_documented: [admin, manager, reporting]
+  - name: Person
+    id_prefix: PER
+    note: >-
+      The lead identity that unifies calls, form submissions and text messages. Surfaced as
+      person_id on calls (via field selection) and person_resource_id on text webhooks; the
+      MCP get_person_timeline tool resolves a phone number to this entity.
+  - name: Lead
+    path: /v3/a/{account_id}/leads.json
+  - name: LeadTimeline
+    path: /v3/a/{agency_id}/leads/{lead_id}/timeline.json
+    note: Chronological events across calls, form submissions and SMS threads for one lead.
+  - name: Integration
+    path: /v3/a/{account_id}/integrations.json
+    sub_objects: [integration configuration object, webhook configuration object, custom cookie capture object]
+    note: Webhooks are configured as an integration.
+  - name: IntegrationFilter
+    path: /v3/a/{account_id}/integration_triggers.json
+    note: Documented as "Integration Filters"; the path uses integration_triggers.
+  - name: Notification
+    path: /v3/a/{account_id}/notifications.json
+  - name: OutboundCallerId
+    path: /v3/a/{account_id}/caller_ids.json
+  - name: SummaryEmail
+    path: /v3/a/{account_id}/summary_emails
+relationships:
+  - {from: Account, to: Company, type: has_many, via: 'path nesting /a/{account_id}/companies'}
+  - {from: Account, to: User, type: has_many, via: 'path nesting /a/{account_id}/users'}
+  - {from: Account, to: Tag, type: has_many, via: 'path nesting /a/{account_id}/tags'}
+  - {from: Account, to: Integration, type: has_many, via: 'path nesting /a/{account_id}/integrations'}
+  - {from: Account, to: Notification, type: has_many, via: 'path nesting /a/{account_id}/notifications'}
+  - {from: Account, to: OutboundCallerId, type: has_many, via: 'path nesting /a/{account_id}/caller_ids'}
+  - {from: Account, to: SummaryEmail, type: has_many, via: 'path nesting /a/{account_id}/summary_emails'}
+  - {from: Account, to: MessageFlow, type: has_many, via: 'path nesting /a/{account_id}/message-flows'}
+  - {from: Company, to: Tracker, type: has_many, via: company_id}
+  - {from: Company, to: Call, type: has_many, via: company_id}
+  - {from: Company, to: FormSubmission, type: has_many, via: company_id}
+  - {from: Company, to: TextMessage, type: has_many, via: company_resource_id}
+  - {from: Tracker, to: Call, type: has_many, via: tracker_id}
+  - {from: Call, to: Company, type: belongs_to, via: company_id}
+  - {from: Call, to: Tracker, type: belongs_to, via: tracker_id}
+  - {from: Call, to: Person, type: belongs_to, via: person_id}
+  - {from: Call, to: CallRecording, type: has_one, via: 'path nesting /calls/{call_id}/recording'}
+  - {from: Call, to: PageView, type: has_many, via: 'path nesting /calls/{call_id}/page_views'}
+  - {from: Call, to: Tag, type: has_many, via: tags}
+  - {from: Call, to: LeadTimeline, type: has_one, via: timeline_url}
+  - {from: FormSubmission, to: Company, type: belongs_to, via: company_id}
+  - {from: FormSubmission, to: LeadTimeline, type: has_one, via: timeline_url}
+  - {from: TextMessage, to: SmsThread, type: belongs_to, via: conversation_id}
+  - {from: TextMessage, to: Person, type: belongs_to, via: person_resource_id}
+  - {from: SmsThread, to: TextMessage, type: has_many, via: conversation_id}
+  - {from: Person, to: Call, type: has_many, via: person_id}
+  - {from: Person, to: TextMessage, type: has_many, via: person_resource_id}
+  - {from: Lead, to: LeadTimeline, type: has_one, via: 'path nesting /leads/{lead_id}/timeline'}
+  - {from: Integration, to: IntegrationFilter, type: has_many, via: integration_triggers}
+  - {from: User, to: Company, type: has_many, via: companies}
+attribution_model:
+  note: >-
+    Calls and form submissions carry a `milestones` object describing attribution per milestone.
+    First-touch is the default for Source/Medium/Campaign/Referrer/Landing Page (2020-01-30);
+    `last_touch` milestone data was added 2023-03-22 for calls and 2023-04-05 for form submissions.
+    `gclid`/`fbclid` return the most valuable associated value regardless of first-touch source.
+render: null

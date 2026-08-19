@@ -1,0 +1,211 @@
+generated: '2026-08-14'
+method: searched
+status: published
+source: https://apidocs.callrail.com/#mcp
+name: CallRail MCP Server
+description: >-
+  CallRail publishes a hosted Model Context Protocol server documented in the MCP section of the
+  v3 API reference. It is a read-only interface by default (a separate set of write tools is also
+  exposed) that proxies the CallRail v3 REST API, authenticates the end user with OAuth 2.0 against
+  CallRail, and scopes every response to that user's existing account permissions.
+deployment:
+  mode: remote
+  endpoint: null
+  install: null
+  package: null
+  auth: oauth
+  verified: searched
+  note: >-
+    The server is remote/hosted — CallRail documents connecting it to Claude.ai (Settings ->
+    Connectors -> Add custom connector), Claude Desktop (an "mcpServers" entry with a bare
+    "url": "https://{MCP_SERVER_URL}/mcp") and ChatGPT (Settings -> Beta features -> Developer
+    Mode -> Tools -> Add MCP server). CallRail does NOT publish the endpoint URL: the docs say in
+    every case to "enter the MCP server URL provided by your CallRail account team", and the
+    Claude Desktop snippet leaves it as the placeholder {MCP_SERVER_URL}. Endpoint recorded as
+    null rather than guessed. Probed https://mcp.callrail.com/mcp, https://mcp.callrail.com/,
+    https://api.callrail.com/mcp and https://api.callrail.com/v3/mcp with a JSON-RPC tools/list
+    POST on 2026-08-14 — all returned HTTP 404 {"error":"Not found"}, so tools/list could not be
+    introspected live and the tool list below is transcribed from the published docs table.
+server:
+  name: callrail
+  transport: http
+  url: null
+  auth:
+    type: oauth2
+    description: >-
+      OAuth 2.0 against CallRail. The assistant redirects the user to CallRail's login page to
+      grant access; no API keys are used. The session is scoped to the CallRail user account and
+      respects existing account/company permissions — accounts or companies the user cannot see in
+      the CallRail interface do not appear in tool responses.
+  clients_documented:
+    - name: Claude.ai
+      requirement: Claude Pro, Max, Team, or Enterprise
+    - name: Claude Desktop
+      requirement: claude_desktop_config.json mcpServers entry
+    - name: ChatGPT
+      requirement: ChatGPT Plus, Pro, Business, Enterprise, or Education with Developer Mode (beta)
+  privacy: >-
+    CallRail states the MCP server acts as a proxy to the CallRail API and does not store or
+    transmit call data beyond what is required to serve requests.
+tools_source: >-
+  Transcribed verbatim from the "Available Tools" tables at https://apidocs.callrail.com/#mcp.
+  Input schemas are NOT published; they require authenticated tools/list introspection against the
+  account-issued endpoint. Names and descriptions only.
+tools:
+  - name: get_account
+    category: account
+    access: read
+    description: Returns all accounts accessible to the authenticated user. Call this at the start of a session to resolve your account ID.
+  - name: list_calls
+    category: calls
+    access: read
+    description: Returns individual call records with filtering by date, tracker, company, tag, and more.
+  - name: get_call
+    category: calls
+    access: read
+    description: Returns details for a single call by ID.
+  - name: get_calls_summary
+    category: calls
+    access: read
+    description: Returns aggregate call counts grouped by source, campaign, company, or other dimensions. Use this for analytics rather than list_calls.
+  - name: get_calls_timeseries
+    category: calls
+    access: read
+    description: Returns call volume over time, bucketed by day, week, or month.
+  - name: get_call_recording
+    category: calls
+    access: read
+    description: Returns the recording URL for a call.
+  - name: get_call_page_views
+    category: calls
+    access: read
+    description: Returns the page view history associated with a call session.
+  - name: list_companies
+    category: companies
+    access: read
+    description: Returns all companies in the account.
+  - name: get_company
+    category: companies
+    access: read
+    description: Returns details for a single company by ID.
+  - name: list_conversations
+    category: conversations
+    access: read
+    description: Returns SMS thread summaries — use to find threads needing attention.
+  - name: get_conversation
+    category: conversations
+    access: read
+    description: Returns the full message history for a specific SMS thread.
+  - name: get_forms_summary
+    category: form-submissions
+    access: read
+    description: Returns aggregate form submission counts.
+  - name: list_form_submissions
+    category: form-submissions
+    access: read
+    description: Returns individual form submission records.
+  - name: get_form_submission
+    category: form-submissions
+    access: read
+    description: Returns details for a single form submission by ID.
+  - name: get_person_timeline
+    category: leads
+    access: read
+    description: Returns a lead's full activity history across calls, form submissions, and SMS threads. Accepts a phone number or person ID.
+  - name: list_sms_threads
+    category: sms-threads
+    access: read
+    description: Returns current SMS thread state — use to find threads needing attention.
+  - name: get_sms_thread
+    category: sms-threads
+    access: read
+    description: Returns the full message exchange for a specific thread.
+  - name: list_tags
+    category: tags
+    access: read
+    description: Returns all tags defined in the account.
+  - name: list_trackers
+    category: trackers
+    access: read
+    description: Returns all tracking numbers in the account.
+  - name: get_tracker
+    category: trackers
+    access: read
+    description: Returns details for a single tracker by ID.
+  - name: list_users
+    category: users
+    access: read
+    description: Returns all users in the account.
+  - name: get_user
+    category: users
+    access: read
+    description: Returns details for a single user by ID.
+  - name: create_call
+    category: write
+    access: write
+    description: Creates a call record.
+  - name: update_call
+    category: write
+    access: write
+    description: Updates a call record, including tagging, noting, or marking as spam.
+  - name: create_company
+    category: write
+    access: write
+    description: Creates a new company.
+  - name: update_company
+    category: write
+    access: write
+    description: Updates an existing company.
+  - name: send_text_message
+    category: write
+    access: write
+    description: Sends an SMS message from a CallRail tracking number.
+  - name: update_form_submission
+    category: write
+    access: write
+    description: Updates a form submission record.
+  - name: create_tag
+    category: write
+    access: write
+    description: Creates a new tag.
+  - name: update_tag
+    category: write
+    access: write
+    description: Updates an existing tag.
+  - name: delete_tag
+    category: write
+    access: write
+    description: Deletes a tag.
+  - name: create_source_tracker
+    category: write
+    access: write
+    description: Creates a new source tracking number.
+  - name: create_session_tracker
+    category: write
+    access: write
+    description: Creates a new session tracking number.
+  - name: create_user
+    category: write
+    access: write
+    description: Creates a new user.
+  - name: update_user
+    category: write
+    access: write
+    description: Updates an existing user.
+  - name: delete_user
+    category: write
+    access: write
+    description: Deletes a user.
+write_tool_warning: >-
+  CallRail's own docs warn that write tools execute immediately and some actions are irreversible,
+  and advise confirming intent before proceeding when driving them from an AI assistant.
+x-evidence:
+  fetched: '2026-08-14'
+  url: https://apidocs.callrail.com/
+  http_status: 200
+  content_type: text/html; charset=utf-8
+  endpoint_probes:
+    - {url: 'https://mcp.callrail.com/mcp', method: POST, http_status: 404}
+    - {url: 'https://mcp.callrail.com/', method: POST, http_status: 404}
+    - {url: 'https://api.callrail.com/mcp', method: POST, http_status: 404}
+    - {url: 'https://api.callrail.com/v3/mcp', method: POST, http_status: 404}

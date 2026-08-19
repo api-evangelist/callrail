@@ -1,0 +1,321 @@
+generated: '2026-08-14'
+method: derived
+source: mcp/callrail-mcp.yml + openapi/callrail-accounts-api-openapi.yml + openapi/callrail-calls-api-openapi.yml + https://apidocs.callrail.com/
+description: >-
+  Binds each published CallRail MCP tool to the CallRail v3 REST operation it wraps. CallRail's own
+  docs state the MCP server "acts as a proxy to the CallRail API", so every tool has a REST
+  counterpart in the published v3 reference. Only 8 of those operations are currently captured as
+  OpenAPI operationIds in this repo (accounts + calls); for every other tool the backing REST
+  surface is identified by its documented method + path instead, and confidence is set accordingly.
+  No tool, field, or operationId below was invented — MCP tools come from the docs' Available Tools
+  tables, operationIds were grepped from the specs, and paths come from the docs' API Endpoint
+  tables and curl examples.
+surfaces:
+  openapi:
+    files:
+      - file: openapi/callrail-accounts-api-openapi.yml
+        operations: 2
+      - file: openapi/callrail-calls-api-openapi.yml
+        operations: 6
+    note: >-
+      Partial coverage of the published v3 surface. The REST reference at
+      https://apidocs.callrail.com/ documents ~14 resource families (accounts, calls, tags,
+      companies, form submissions, integrations, integration filters, notifications, outbound
+      caller IDs, page views, SMS threads, summary emails, text messages, message flows, trackers,
+      users, leads, lead timelines); CallRail publishes no OpenAPI of its own.
+  graphql:
+    endpoint: null
+    note: CallRail publishes no GraphQL surface.
+  mcp:
+    endpoint: null
+    gated: true
+    note: >-
+      Remote MCP server; endpoint URL is issued per account by CallRail and is not published, so
+      tools/list could not be introspected. Tool names/descriptions transcribed from the docs.
+crosswalk:
+  - tool: get_account
+    category: account
+    rest: [listAccounts]
+    rest_path: GET /v3/a.json
+    binding: rest
+    confidence: high
+    note: >-
+      Tool description ("Returns all accounts accessible to the authenticated user") matches the
+      listAccounts collection operation, not the single-account getAccount operation.
+  - tool: list_calls
+    category: calls
+    rest: [listCalls]
+    rest_path: GET /v3/a/{account_id}/calls.json
+    binding: rest
+    confidence: high
+  - tool: get_call
+    category: calls
+    rest: [getCall]
+    rest_path: GET /v3/a/{account_id}/calls/{call_id}.json
+    binding: rest
+    confidence: high
+  - tool: get_calls_summary
+    category: calls
+    rest: [getCallSummary]
+    rest_path: GET /v3/a/{account_id}/calls/summary.json
+    binding: rest
+    confidence: high
+  - tool: get_calls_timeseries
+    category: calls
+    rest: [getCallTimeseries]
+    rest_path: GET /v3/a/{account_id}/calls/timeseries.json
+    binding: rest
+    confidence: high
+  - tool: create_call
+    category: write
+    rest: [createCall]
+    rest_path: POST /v3/a/{account_id}/calls.json
+    binding: rest
+    confidence: high
+  - tool: update_call
+    category: write
+    rest: [updateCall]
+    rest_path: PUT /v3/a/{account_id}/calls/{call_id}.json
+    binding: rest
+    confidence: high
+  - tool: get_call_recording
+    category: calls
+    rest: []
+    rest_path: GET /v3/a/{account_id}/calls/{call_id}/recording.json
+    binding: rest-documented
+    confidence: medium
+    note: Documented REST operation ("Retrieving a Single Call Recording"); no operationId in this repo yet.
+  - tool: get_call_page_views
+    category: calls
+    rest: []
+    rest_path: GET /v3/a/{account_id}/calls/{call_id}/page_views.json
+    binding: rest-documented
+    confidence: medium
+  - tool: list_companies
+    category: companies
+    rest: []
+    rest_path: GET /v3/a/{account_id}/companies.json
+    binding: rest-documented
+    confidence: medium
+  - tool: get_company
+    category: companies
+    rest: []
+    rest_path: GET /v3/a/{account_id}/companies/{company_id}.json
+    binding: rest-documented
+    confidence: medium
+  - tool: create_company
+    category: write
+    rest: []
+    rest_path: POST /v3/a/{account_id}/companies.json
+    binding: rest-documented
+    confidence: medium
+  - tool: update_company
+    category: write
+    rest: []
+    rest_path: PUT /v3/a/{account_id}/companies/{company_id}.json
+    binding: rest-documented
+    confidence: medium
+  - tool: list_conversations
+    category: conversations
+    rest: []
+    rest_path: GET /v3/a/{account_id}/text-messages.json
+    binding: rest-documented
+    confidence: medium
+    note: >-
+      "Listing All Conversations" in the Text Messages section. Distinct from list_sms_threads,
+      which maps to the separate /sms-threads.json family.
+  - tool: get_conversation
+    category: conversations
+    rest: []
+    rest_path: GET /v3/a/{account_id}/text-messages/{conversation_id}.json
+    binding: rest-documented
+    confidence: medium
+  - tool: send_text_message
+    category: write
+    rest: []
+    rest_path: POST /v3/a/{account_id}/text-messages.json
+    binding: rest-documented
+    confidence: medium
+  - tool: list_sms_threads
+    category: sms-threads
+    rest: []
+    rest_path: GET /v3/a/{account_id}/sms-threads.json
+    binding: rest-documented
+    confidence: medium
+  - tool: get_sms_thread
+    category: sms-threads
+    rest: []
+    rest_path: GET /v3/a/{account_id}/sms-threads/{thread_id}.json
+    binding: rest-documented
+    confidence: medium
+  - tool: list_form_submissions
+    category: form-submissions
+    rest: []
+    rest_path: GET /v3/a/{account_id}/form_submissions.json
+    binding: rest-documented
+    confidence: medium
+  - tool: get_forms_summary
+    category: form-submissions
+    rest: []
+    rest_path: GET /v3/a/{account_id}/forms/summary.json
+    binding: rest-documented
+    confidence: medium
+  - tool: get_form_submission
+    category: form-submissions
+    rest: []
+    rest_path: GET /v3/a/{account_id}/form_submissions.json
+    binding: rest-documented
+    confidence: low
+    note: >-
+      The v3 reference documents Listing All Form Submissions but no single-form-submission GET;
+      the server most likely filters the collection. Confidence low by design.
+  - tool: update_form_submission
+    category: write
+    rest: []
+    rest_path: PUT /v3/a/{account_id}/form_submissions/{form_submission_id}.json
+    binding: rest-documented
+    confidence: medium
+  - tool: get_person_timeline
+    category: leads
+    rest: []
+    rest_path: GET /v3/a/{agency_id}/leads/{lead_id}/timeline.json
+    binding: rest-documented
+    confidence: low
+    note: >-
+      The tool accepts a phone number OR a person ID; the documented REST timeline endpoint is keyed
+      by lead_id under an agency_id. The server almost certainly resolves phone -> lead first, so
+      this is a composite rather than a 1:1 proxy. Confidence low by design.
+  - tool: list_tags
+    category: tags
+    rest: []
+    rest_path: GET /v3/a/{account_id}/tags.json
+    binding: rest-documented
+    confidence: medium
+  - tool: create_tag
+    category: write
+    rest: []
+    rest_path: POST /v3/a/{account_id}/tags.json
+    binding: rest-documented
+    confidence: medium
+  - tool: update_tag
+    category: write
+    rest: []
+    rest_path: PUT /v3/a/{account_id}/tags/{tag_id}.json
+    binding: rest-documented
+    confidence: medium
+  - tool: delete_tag
+    category: write
+    rest: []
+    rest_path: DELETE /v3/a/{account_id}/tags/{tag_id}.json
+    binding: rest-documented
+    confidence: medium
+  - tool: list_trackers
+    category: trackers
+    rest: []
+    rest_path: GET /v3/a/{account_id}/trackers.json
+    binding: rest-documented
+    confidence: medium
+  - tool: get_tracker
+    category: trackers
+    rest: []
+    rest_path: GET /v3/a/{account_id}/trackers/{tracker_id}.json
+    binding: rest-documented
+    confidence: medium
+  - tool: create_source_tracker
+    category: write
+    rest: []
+    rest_path: POST /v3/a/{account_id}/trackers.json
+    binding: rest-documented
+    confidence: medium
+    note: >-
+      Docs split "Creating a Source Tracker" and "Creating a Session Tracker" into two sections that
+      POST the same path with a different type/call-source body.
+  - tool: create_session_tracker
+    category: write
+    rest: []
+    rest_path: POST /v3/a/{account_id}/trackers.json
+    binding: rest-documented
+    confidence: medium
+  - tool: list_users
+    category: users
+    rest: []
+    rest_path: GET /v3/a/{account_id}/users.json
+    binding: rest-documented
+    confidence: medium
+  - tool: get_user
+    category: users
+    rest: []
+    rest_path: GET /v3/a/{account_id}/users/{user_id}.json
+    binding: rest-documented
+    confidence: medium
+  - tool: create_user
+    category: write
+    rest: []
+    rest_path: POST /v3/a/{account_id}/users.json
+    binding: rest-documented
+    confidence: medium
+  - tool: update_user
+    category: write
+    rest: []
+    rest_path: PUT /v3/a/{account_id}/users/{user_id}.json
+    binding: rest-documented
+    confidence: medium
+  - tool: delete_user
+    category: write
+    rest: []
+    rest_path: DELETE /v3/a/{account_id}/users/{user_id}.json
+    binding: rest-documented
+    confidence: medium
+mcp_only: []
+mcp_only_note: >-
+  No MCP tool was found without a documented REST counterpart — consistent with CallRail's own
+  statement that the MCP server proxies the v3 API.
+rest_only:
+  - capability: Integrations + integration filters
+    paths:
+      - /v3/a/{account_id}/integrations.json
+      - /v3/a/{account_id}/integrations/{integration_id}.json
+      - /v3/a/{account_id}/integration_triggers.json
+      - /v3/a/{account_id}/integration_triggers/{integration_trigger_id}.json
+    note: No MCP tool exposes integration configuration (including webhook configuration).
+  - capability: Notifications
+    paths:
+      - /v3/a/{account_id}/notifications.json
+      - /v3/a/{account_id}/notifications/{notification_id}.json
+  - capability: Outbound caller IDs
+    paths:
+      - /v3/a/{account_id}/caller_ids.json
+      - /v3/a/{account_id}/caller_ids/{caller_ids_id}.json
+  - capability: Summary emails
+    paths:
+      - /v3/a/{account_id}/summary_emails
+      - /v3/a/{account_id}/summary_emails/{summary_email_id}.json
+  - capability: Message flows
+    paths:
+      - /v3/a/{account_id}/message-flows.json
+      - /v3/a/{account_id}/message-flows/{message_flow_id}.json
+  - capability: Leads index
+    paths:
+      - /v3/a/{account_id}/leads.json
+    note: get_person_timeline covers a single lead's timeline; the leads collection has no tool.
+  - capability: Tracker lifecycle (update/disable)
+    paths:
+      - /v3/a/{account_id}/trackers/{tracker_id}.json
+    note: update/disable a tracker has no MCP tool; only create_source_tracker / create_session_tracker exist.
+  - capability: Company disable
+    paths:
+      - /v3/a/{account_id}/companies/{company_id}.json
+    note: DELETE (disable) a company has no MCP tool.
+  - capability: Single-account retrieval
+    operationIds: [getAccount]
+    paths:
+      - /v3/a/{account_id}.json
+    note: get_account returns the list; there is no single-account tool.
+coverage:
+  mcp_tools_published: 36
+  mcp_tools_bound: 36
+  bound_to_operationid: 7
+  bound_to_documented_path_only: 29
+  mcp_only: 0
+  openapi_operations_in_repo: 8
+  openapi_operations_with_a_tool: 7

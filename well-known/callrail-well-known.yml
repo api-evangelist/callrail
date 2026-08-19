@@ -1,0 +1,62 @@
+generated: '2026-08-14'
+method: probed
+source: live GET probes of every CallRail host on 2026-08-14
+description: >-
+  Every RFC 8615 well-known path probed on every CallRail host returned a miss. api.callrail.com,
+  apidocs.callrail.com and app.callrail.com return real 404s. www.callrail.com returns HTTP 200 for
+  every /.well-known/* path, but the body is the site's Angular single-page-app HTML shell (the
+  same 20,934-byte document served for any unrouted path), not a document — recorded as a miss.
+  No WellKnown, SecurityTxt or APICatalog pointer is emitted, because nothing here shows CallRail
+  serving these surfaces.
+result: none
+hosts:
+  - host: https://api.callrail.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404, file: null}
+      - {path: /.well-known/openid-configuration, status: 404, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
+      - {path: /.well-known/api-catalog, status: 404, file: null}
+      - {path: /.well-known/ai-plugin.json, status: 404, file: null}
+      - {path: /.well-known/agent-card.json, status: 404, file: null}
+      - {path: /.well-known/agent.json, status: 404, file: null}
+  - host: https://apidocs.callrail.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404, file: null}
+      - {path: /.well-known/openid-configuration, status: 404, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
+      - {path: /.well-known/api-catalog, status: 404, file: null}
+      - {path: /.well-known/ai-plugin.json, status: 404, file: null}
+      - {path: /.well-known/agent-card.json, status: 404, file: null}
+      - {path: /.well-known/agent.json, status: 404, file: null}
+  - host: https://app.callrail.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404, file: null}
+      - {path: /.well-known/openid-configuration, status: 404, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
+      - {path: /.well-known/api-catalog, status: 404, file: null}
+      - {path: /.well-known/ai-plugin.json, status: 404, file: null}
+      - {path: /.well-known/agent-card.json, status: 404, file: null}
+      - {path: /.well-known/agent.json, status: 404, file: null}
+  - host: https://www.callrail.com
+    soft_404: true
+    note: >-
+      SPA catch-all. All seven paths return 200 with `<!doctype html>` and the Angular app shell.
+      Treated as misses — a 200 that returns an HTML shell is not a document.
+    documents:
+      - {path: /.well-known/security.txt, status: 200, content_type: text/html, document: false, file: null}
+      - {path: /.well-known/openid-configuration, status: 200, content_type: text/html, document: false, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 200, content_type: text/html, document: false, file: null}
+      - {path: /.well-known/api-catalog, status: 200, content_type: text/html, document: false, file: null}
+      - {path: /.well-known/ai-plugin.json, status: 200, content_type: text/html, document: false, file: null}
+      - {path: /.well-known/agent-card.json, status: 200, content_type: text/html, document: false, file: null}
+      - {path: /.well-known/agent.json, status: 200, content_type: text/html, document: false, file: null}
+related:
+  - >-
+    CallRail's MCP server authenticates with OAuth 2.0, but no RFC 8414
+    /.well-known/oauth-authorization-server or RFC 9728 /.well-known/oauth-protected-resource
+    document is reachable anonymously, because the MCP endpoint host is issued per account and is
+    not published. See mcp/callrail-mcp.yml.
+  - >-
+    A vulnerability disclosure program exists at https://www.callrail.com/security/disclosure but
+    is not advertised through /.well-known/security.txt. See
+    security/callrail-vulnerability-disclosure.yml.

@@ -1,16 +1,83 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/callrail-openapi.yml
+generated: '2026-08-14'
+method: searched
+source: openapi/callrail-accounts-api-openapi.yml, openapi/callrail-calls-api-openapi.yml
+docs: https://apidocs.callrail.com/#authorization
+description: >-
+  CallRail runs two distinct authentication models. The v3 REST API uses a user-scoped API key sent
+  in a non-standard Authorization header format. The hosted MCP server uses OAuth 2.0 against
+  CallRail with no API key at all. Neither surface publishes OAuth metadata, an OIDC discovery
+  document, or a scope reference.
 summary:
   types:
-  - apiKey
+    - apiKey
+    - oauth2
   api_key_in:
-  - header
+    - header
+  oauth2_flows:
+    - unpublished
 schemes:
-- name: TokenAuth
-  type: apiKey
-  in: header
-  parameter: Authorization
-  description: 'Send as `Authorization: Token token="YOUR_API_KEY"`.'
-  sources:
-  - openapi/callrail-openapi.yml
+  - name: TokenAuth
+    type: apiKey
+    in: header
+    parameter: Authorization
+    format: 'Authorization: Token token="YOUR_API_KEY"'
+    description: >-
+      Rails-style token authentication. The value is not a bare token and not `Bearer` — it is the
+      literal string `Token token="..."`, which is the single most common integration mistake
+      against this API.
+    applies_to: every v3 REST endpoint
+    sources:
+      - openapi/callrail-accounts-api-openapi.yml
+      - openapi/callrail-calls-api-openapi.yml
+    scope_model: >-
+      Keys are scoped to an individual CallRail user and carry exactly that user's visibility.
+      Responses only include data the user can see in the CallRail interface — calls to accounts or
+      companies the user cannot access are not returned. There are no permission scopes to request,
+      narrow, or grant: a key is as powerful as its user.
+    revocation: Managed in the CallRail application; not exposed through the API.
+    key_creation: >-
+      Requires a CallRail account; the key is created in the application before any API call can be
+      made.
+    warning: >-
+      CallRail's own warning: "Treat your API key as you would your password... anyone who has your
+      API key can use that key to access or modify any data you have control over."
+  - name: MCP OAuth
+    type: oauth2
+    surface: hosted MCP server
+    description: >-
+      The MCP server authenticates the end user with OAuth 2.0 against CallRail — the assistant
+      redirects to CallRail's login page for authorization. No API keys are involved; the session
+      is scoped to the CallRail user account and respects existing account/company permissions.
+    flows: []
+    flows_note: >-
+      Grant type, authorization URL, token URL and scopes are all unpublished. No
+      /.well-known/oauth-authorization-server (RFC 8414) or /.well-known/oauth-protected-resource
+      (RFC 9728) document is reachable, and the MCP endpoint host itself is issued per account, so
+      the flow cannot be discovered programmatically.
+    sources:
+      - https://apidocs.callrail.com/#mcp
+    detail: mcp/callrail-mcp.yml
+request_identification:
+  header: Request-From
+  required: false
+  description: >-
+    Not authentication, but CallRail asks third-party platforms building integrations to identify
+    themselves with a `Request-From` header carrying their lowercased software name with
+    underscores for spaces (e.g. `Request-From: hanks_hotdogs`). Customers calling the API for
+    their own data do not need it.
+  source: https://apidocs.callrail.com/#identifying-your-integration
+scopes:
+  published: false
+  note: >-
+    No OAuth scopes, permission strings, or scoped-key types are documented for either surface, so
+    no scopes/ artifact is written. Authorization is entirely inherited from the underlying user.
+transport_security:
+  https_required: true
+  tls: >-
+    api.callrail.com negotiates TLS 1.2 and does not send HSTS; see
+    security/callrail-domain-security.yml.
+gaps:
+  - No scoped or least-privilege API keys — a key inherits its user's full access.
+  - No OAuth for the REST API, so third-party integrations must ask customers to paste a key.
+  - No published OAuth metadata for the MCP server despite it being an OAuth surface.
+  - No key rotation, expiry, or last-used visibility documented through the API.
