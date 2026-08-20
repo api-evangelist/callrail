@@ -95,6 +95,10 @@ apis:
   baseURL: https://api.callrail.com/v3/
   tags:
   - MCP
+  - AI Agents
+  - Call Tracking
+  tags_raw:
+  - MCP
   - Model Context Protocol
   - AI Agents
   - Call Tracking
@@ -111,6 +115,8 @@ apis:
   humanURL: https://apidocs.callrail.com/#accounts
   baseURL: https://api.callrail.com/v3/
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
