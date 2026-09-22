@@ -42,6 +42,10 @@ accessModel:
     minutes, plus an enterprise contact-sales track. No free tier. The API is included with the
     platform rather than priced separately; API access requires an account and an API key.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/callrail.png
+x-docs-platform: slate
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-09-21
+x-docs-hosting: github-pages
 tags:
   - Call Tracking
   - Conversation Intelligence
