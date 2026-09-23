@@ -1,12 +1,10 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: CallRail v3 Accounts API
   version: 3.0.0
   description: 'REST/JSON API for CallRail, a call tracking and conversation intelligence
 
-    platform. Exposes accounts, calls, and related summary/timeseries reporting.
-
-    '
+    platform. Exposes accounts, calls, and related summary/timeseries reporting.'
   contact:
     name: CallRail API Support
     url: https://apidocs.callrail.com/
@@ -60,11 +58,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
     Account:
       type: object
       properties:
@@ -78,6 +71,11 @@ components:
           type: boolean
         numeric_id:
           type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
     Pagination:
       type: object
       properties:
@@ -99,12 +97,6 @@ components:
             items:
               $ref: '#/components/schemas/Account'
   parameters:
-    AccountId:
-      name: account_id
-      in: path
-      required: true
-      schema:
-        type: string
     PerPage:
       name: per_page
       in: query
@@ -113,6 +105,12 @@ components:
         minimum: 1
         maximum: 250
         default: 100
+    AccountId:
+      name: account_id
+      in: path
+      required: true
+      schema:
+        type: string
     Page:
       name: page
       in: query
