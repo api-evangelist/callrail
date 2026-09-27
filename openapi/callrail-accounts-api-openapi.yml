@@ -57,45 +57,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  schemas:
-    Account:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        outbound_recording_enabled:
-          type: boolean
-        hipaa_account:
-          type: boolean
-        numeric_id:
-          type: integer
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-    Pagination:
-      type: object
-      properties:
-        page:
-          type: integer
-        per_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_records:
-          type: integer
-    AccountList:
-      allOf:
-      - $ref: '#/components/schemas/Pagination'
-      - type: object
-        properties:
-          accounts:
-            type: array
-            items:
-              $ref: '#/components/schemas/Account'
+  responses:
+    RateLimited:
+      description: Rate limit exceeded (1,000/hour or 10,000/day).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     PerPage:
       name: per_page
@@ -118,25 +98,45 @@ components:
         type: integer
         minimum: 1
         default: 1
-  responses:
-    Unauthorized:
-      description: Missing or invalid credentials.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: Rate limit exceeded (1,000/hour or 10,000/day).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        outbound_recording_enabled:
+          type: boolean
+        hipaa_account:
+          type: boolean
+        numeric_id:
+          type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+    AccountList:
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
+      - type: object
+        properties:
+          accounts:
+            type: array
+            items:
+              $ref: '#/components/schemas/Account'
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_records:
+          type: integer
   securitySchemes:
     TokenAuth:
       type: apiKey
