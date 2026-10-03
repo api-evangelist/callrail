@@ -58,12 +58,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    RateLimited:
-      description: Rate limit exceeded (1,000/hour or 10,000/day).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found.
       content:
@@ -76,7 +70,19 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit exceeded (1,000/hour or 10,000/day).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
+    AccountId:
+      name: account_id
+      in: path
+      required: true
+      schema:
+        type: string
     PerPage:
       name: per_page
       in: query
@@ -85,12 +91,6 @@ components:
         minimum: 1
         maximum: 250
         default: 100
-    AccountId:
-      name: account_id
-      in: path
-      required: true
-      schema:
-        type: string
     Page:
       name: page
       in: query
@@ -99,6 +99,31 @@ components:
         minimum: 1
         default: 1
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_records:
+          type: integer
+    AccountList:
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
+      - type: object
+        properties:
+          accounts:
+            type: array
+            items:
+              $ref: '#/components/schemas/Account'
     Account:
       type: object
       properties:
@@ -111,31 +136,6 @@ components:
         hipaa_account:
           type: boolean
         numeric_id:
-          type: integer
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-    AccountList:
-      allOf:
-      - $ref: '#/components/schemas/Pagination'
-      - type: object
-        properties:
-          accounts:
-            type: array
-            items:
-              $ref: '#/components/schemas/Account'
-    Pagination:
-      type: object
-      properties:
-        page:
-          type: integer
-        per_page:
-          type: integer
-        total_pages:
-          type: integer
-        total_records:
           type: integer
   securitySchemes:
     TokenAuth:

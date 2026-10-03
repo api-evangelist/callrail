@@ -284,20 +284,8 @@ paths:
                       additionalProperties: true
 components:
   responses:
-    RateLimited:
-      description: Rate limit exceeded (1,000/hour or 10,000/day).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid credentials.
       content:
         application/json:
           schema:
@@ -308,7 +296,25 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit exceeded (1,000/hour or 10,000/day).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
+    AccountId:
+      name: account_id
+      in: path
+      required: true
+      schema:
+        type: string
     PerPage:
       name: per_page
       in: query
@@ -317,6 +323,12 @@ components:
         minimum: 1
         maximum: 250
         default: 100
+    CallId:
+      name: call_id
+      in: path
+      required: true
+      schema:
+        type: string
     Page:
       name: page
       in: query
@@ -324,18 +336,6 @@ components:
         type: integer
         minimum: 1
         default: 1
-    CallId:
-      name: call_id
-      in: path
-      required: true
-      schema:
-        type: string
-    AccountId:
-      name: account_id
-      in: path
-      required: true
-      schema:
-        type: string
   schemas:
     Call:
       type: object
@@ -403,6 +403,15 @@ components:
           type: string
         tracker_id:
           type: string
+    CallList:
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
+      - type: object
+        properties:
+          calls:
+            type: array
+            items:
+              $ref: '#/components/schemas/Call'
     Error:
       type: object
       properties:
@@ -419,15 +428,6 @@ components:
           type: integer
         total_records:
           type: integer
-    CallList:
-      allOf:
-      - $ref: '#/components/schemas/Pagination'
-      - type: object
-        properties:
-          calls:
-            type: array
-            items:
-              $ref: '#/components/schemas/Call'
   securitySchemes:
     TokenAuth:
       type: apiKey
