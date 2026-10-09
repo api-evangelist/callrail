@@ -121,3 +121,38 @@ x-evidence:
     with no prices. The figures above were read from the site's own prerendered response (fetched
     with a Prerender/Googlebot user agent, HTTP 200, 164,121 bytes), which is what CallRail serves
     to crawlers.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  units: []
+  plans:
+  - name: Lead Tracking
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Lead Tracking Complete
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Lead Conversion
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Lead Conversion Complete
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods:
+    - month
