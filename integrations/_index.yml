@@ -108,7 +108,7 @@
     - alpha
     in_cloud: true
     builder: unknown (community connector; contributor not in the record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: callrail-fivetran
   label: Fivetran
@@ -134,7 +134,7 @@
     - connectors/applications/callrail
     vendor_link: https://www.callrail.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: callrail-meltano
   label: Meltano
@@ -163,7 +163,7 @@
     quality:
     - bronze
     builder: 'community (Meltano Hub variant maintainers: airbyte)'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
 - slug: callrail-slack-own
   label: Slack (own)
