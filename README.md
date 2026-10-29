@@ -1,4 +1,4 @@
-# CallRail (callrail)
+# CallRail
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,64 +66,147 @@
 
 CallRail is a call tracking and conversation intelligence platform that attributes phone calls, texts, and form fills to marketing campaigns and applies AI-powered transcription, sentiment, and lead scoring to inbound conversations. The CallRail v3 API is a REST/JSON interface exposing accounts, companies, trackers, calls, texts, form submissions, and integrations. Authentication uses an account API key passed in the HTTP Authorization header against a base URL of https://api.callrail.com/v3/.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/callrail/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/callrail/refs/heads/main/apis.yml)
+**Areas:** Call Tracking · Conversation Intelligence · Marketing Attribution · Lead Tracking · Telephony · Analytics · Form Tracking · Attribution
 
-## Scope
+## CallRail on APIs.io
 
-- **Type:** Index
+Everything profiled for CallRail is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/callrail/](https://apis.io/providers/callrail/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (4)
 
-- Call Tracking
-- Conversation Intelligence
-- Marketing Attribution
-- Lead Tracking
-- Telephony
-- Analytics
-- Form Tracking
+- [CallRail v3 API](https://apis.io/apis/callrail/v3-api/) — REST API providing programmatic access to CallRail accounts, companies, tracking numbers, calls, text messages, form submissions, users, tags, and…
+- [CallRail MCP Server](https://apis.io/apis/callrail/mcp/) — CallRail's hosted Model Context Protocol server. Connects a CallRail account directly to AI assistants (Claude.ai, Claude Desktop, ChatGPT) over OAuth 2.0,…
+- [CallRail Accounts API](https://apis.io/apis/callrail/callrail-accounts-api/) — The Accounts API from CallRail — 2 operation(s) for accounts.
+- [CallRail Calls API](https://apis.io/apis/callrail/callrail-calls-api/) — The Calls API from CallRail — 6 operation(s) for calls, including summary and time series reporting.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-11
-- **Modified:** 2026-05-11
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### CallRail v3 API
+Event-driven and webhook contracts.
 
-REST API providing programmatic access to CallRail accounts, companies, tracking numbers, calls, text messages, form submissions, users, tags, and integrations. Requests authenticate via the HTTP header Authorization Token token="YOUR_API_KEY".
+- [Callrail Webhooks](https://apis.io/asyncapis/callrail/callrail-webhooks/)
 
-- **Human URL:** [https://apidocs.callrail.com/](https://apidocs.callrail.com/)
-- **Base URL:** `https://api.callrail.com/v3/`
+#### MCP servers (1)
 
-#### Tags
+Model Context Protocol servers that expose the API to agents.
 
-- Call Tracking
-- Conversation Intelligence
-- Marketing Attribution
-- Calls
-- Texts
-- Form Submissions
+- [callrail](https://apis.io/servers/callrail/callrail/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://apidocs.callrail.com/)
-- [Help  Center  A P I](https://support.callrail.com/hc/en-us/sections/4426797289229-API)
-- [Postman Collection](collections/callrail.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/callrail.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-## Common Properties
+- [Callrail Agentic Access](https://apis.io/agentic-access/callrail/callrail-agentic-access/)
+
+#### Collections (3)
+
+Postman and Open Collection request collections.
+
+- [CallRail v3 API](https://apis.io/collections/callrail/open-callrail/)
+- [CallRail v3 Accounts API](https://apis.io/collections/callrail/open-callrail-accounts-api/)
+- [CallRail v3 Accounts Calls API](https://apis.io/collections/callrail/open-callrail-calls-api/)
+
+#### Overlays (2)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Callrail Accounts Api Overlay](https://apis.io/overlays/callrail/callrail-accounts-api-overlay/)
+- [Callrail Calls Api Overlay](https://apis.io/overlays/callrail/callrail-calls-api-overlay/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Callrail Authentication](https://apis.io/security/callrail/callrail-authentication/)
+- [Callrail Domain Security](https://apis.io/security/callrail/callrail-domain-security/)
+- [Callrail Trust Center](https://apis.io/security/callrail/callrail-trust-center/)
+- [Callrail Vulnerability Disclosure](https://apis.io/security/callrail/callrail-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Callrail Plans Pricing](https://apis.io/plans/callrail/callrail-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Callrail Rate Limits](https://apis.io/rate-limits/callrail/callrail-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.callrail.com)
-- [Developer  Portal](https://apidocs.callrail.com)
 - [Documentation](https://apidocs.callrail.com/)
-- [Pricing](https://www.callrail.com/pricing/)
-- [Sign Up](https://app.callrail.com/signup)
-- [Support](https://support.callrail.com)
-- [GitHub Organization](https://github.com/CallRail)
-- [LinkedIn](https://www.linkedin.com/company/callrail)
+- [Getting started](https://apidocs.callrail.com/#getting-started)
+- [API reference](https://apidocs.callrail.com/#api)
+- [Pricing](https://www.callrail.com/pricing)
+- [Sign up](https://www.callrail.com/signup)
+- [Support](https://support.callrail.com/hc/en-us)
+- [Blog](https://www.callrail.com/learn)
+- [Security](https://www.callrail.com/security/disclosure)
+- [Compliance](https://www.callrail.com/security)
+- [Terms of service](https://www.callrail.com/legal)
+- [Privacy policy](https://www.callrail.com/privacy)
+- [GitHub](https://github.com/CallRail)
+- [Status](https://status.callrail.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 50.7** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.7 |
+| Contract quality | 55.2 |
+| Contract governance | 18.2 |
+| Operational transparency | 65.8 |
+| Developer ergonomics | 47.0 |
+| Access clarity | 46.1 |
+
+**Agent readiness 32.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 22.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/callrail/](https://apis.io/providers/callrail/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for CallRail: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/callrail/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
